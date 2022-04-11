@@ -2,6 +2,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import HomeScreen from "./components/home-screen";
 import SearchScreen from "./components/search-screen";
 import ProfileScreen from "./components/profile-screen";
+import DetailsScreen from "./components/details-screen";
 import Restaurant from "./components";
 
 function App() {
@@ -13,6 +14,8 @@ function App() {
             <Route index element={<HomeScreen/>}/>
               <Route path="profile" element={<ProfileScreen/>}/>
               <Route path="search" element={<SearchScreen/>}/>
+              <Route path="search/:term/:location" element={<SearchScreen/>}/>
+              <Route path="search/details/:id" element={<DetailsScreen/>}/>
           </Route>
         </Routes>
       </div>
