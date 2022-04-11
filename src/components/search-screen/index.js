@@ -1,5 +1,5 @@
 import React, {useRef, useState, useEffect} from "react";
-import {useParams, Link} from "react-router-dom";
+import {useParams, Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {getBusinessesByTermAndLocation} from "../../services/yelp-services";
 
@@ -8,17 +8,21 @@ const SearchScreen = () => {
   const {term, location} = useParams();
   const termRef = useRef();
   const locationRef = useRef();
+  const navigate = useNavigate();
 
   const searchBusinessesByTermAndLocation = async () => {
     const search = {term: termRef.current.value, location: locationRef.current.value};
     const results = await getBusinessesByTermAndLocation(search);
     setBusinesses(results.businesses);
+    navigate(`/search/${termRef.current.value}/${locationRef.current.value}`);
   }
 
   useEffect(() => {
-    termRef.current.value = term;
-    locationRef.current.value = location;
-    searchBusinessesByTermAndLocation();
+    if (term && location) {
+      termRef.current.value = term;
+      locationRef.current.value = location;
+      searchBusinessesByTermAndLocation();
+    }
   }, []);
 
   return(
