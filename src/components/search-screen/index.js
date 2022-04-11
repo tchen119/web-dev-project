@@ -1,24 +1,25 @@
-import React, {useRef, useState} from "react";
-import {useParams, useEffect, Link} from "react-router-dom";
+import React, {useRef, useState, useEffect} from "react";
+import {useParams, Link} from "react-router-dom";
 import axios from "axios";
 import {getBusinessesByTermAndLocation} from "../../services/yelp-services";
 
 const SearchScreen = () => {
   const [businesses, setBusinesses] = useState([]);
-  //const {searchString} = useParams();
+  const {term, location} = useParams();
   const termRef = useRef();
   const locationRef = useRef();
 
   const searchBusinessesByTermAndLocation = async () => {
-    const search = {term: termRef, location: locationRef};
-    const results = getBusinessesByTermAndLocation(search);
-    setBusinesses(results);
+    const search = {term: termRef.current.value, location: locationRef.current.value};
+    const results = await getBusinessesByTermAndLocation(search);
+    setBusinesses(results.businesses);
   }
 
-//  useEffect(() => {
-//    //termRef.current.value = searchString;
-//    searchBusinessesByTermAndLocation();
-//  }, []);
+  useEffect(() => {
+    termRef.current.value = term;
+    locationRef.current.value = location;
+    searchBusinessesByTermAndLocation();
+  }, []);
 
   return(
     <>
@@ -32,19 +33,19 @@ const SearchScreen = () => {
       </div>
       <button type="submit" class="btn btn-primary" onClick={searchBusinessesByTermAndLocation}>Submit</button>
 
-      {JSON.stringify(businesses)}
-
-//      <ul className="list-group">
-//        {
-//          businesses.map(business =>
-//            <li className="list-group-item">
-//              <Link to={'/search/details/:id'}>
-//                {business}
-//              </Link>
-//            </li>
-//          )
-//        }
-//      </ul>
+      <ul className="list-group">
+        {
+          businesses.map((business) => {
+            return(
+              <li className="list-group-item" key={business.id}>
+                <Link to={`/search/details/${business.id}`}>
+                  {JSON.stringify(business.name)}
+                </Link>
+              </li>
+            );
+          })
+        }
+      </ul>
     </>
   );
 }
