@@ -3,6 +3,8 @@ import HomeScreen from "./components/home-screen";
 import SearchScreen from "./components/search-screen";
 import ProfileScreen from "./components/profile-screen";
 import DetailsScreen from "./components/details-screen";
+import SignUpScreen from "./components/signup-screen";
+import LoginScreen from "./components/login-screen";
 import Restaurant from "./components";
 
 function App() {
@@ -10,6 +12,8 @@ function App() {
     <BrowserRouter>
       <div className="container">
         <Routes>
+          <Route path="signup" element={<SignUpScreen/>}/>
+          <Route path="login" element={<LoginScreen/>}/>
           <Route path="/" element={<Restaurant/>}>
             <Route index element={<HomeScreen/>}/>
               <Route path="profile" element={<ProfileScreen/>}/>
