@@ -5,6 +5,7 @@ import ProfileScreen from "./components/profile-screen";
 import DetailsScreen from "./components/details-screen";
 import SignUpScreen from "./components/signup-screen";
 import LoginScreen from "./components/login-screen";
+import PrivacyScreen from "./components/privacy-screen";
 import Restaurant from "./components";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="signup" element={<SignUpScreen/>}/>
           <Route path="login" element={<LoginScreen/>}/>
+          <Route path="privacy" element={<PrivacyScreen/>}/>
           <Route path="/" element={<Restaurant/>}>
             <Route index element={<HomeScreen/>}/>
               <Route path="profile" element={<ProfileScreen/>}/>
