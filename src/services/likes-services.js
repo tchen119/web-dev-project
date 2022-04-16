@@ -25,7 +25,8 @@ export const findLikes = async (business_id) => {
 }
 
 export const findDislikes = async (business_id) => {
-  const response = await axios.get(`${LIKES_API}/dislikes/${business_id}`);
+  const DISLIKES_API = "http://localhost:4000/api/businesses/dislikes";
+  const response = await axios.get(`${DISLIKES_API}/${business_id}`);
   return response.data;
 }
 

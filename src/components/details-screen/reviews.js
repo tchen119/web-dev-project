@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {findAllReviews, createReview, deleteReview, updateReview} from '../../services/reviews-services';
-import ReviewItem from './review-item';
 
 const Reviews = (businessReviews, bid) => {
   const review_list = businessReviews.businessReviews;
-  const [newReview, setNewReview] = useState({});
+  const [newReview, setNewReview] = useState("");
   const [allReviews, setAllReviews] = useState(review_list);
   const [updatedReview, setUpdatedReview] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [activeModal, setActiveModal] = useState({});
   const user_id = "1";
+  const loggedIn = true;
 
   const handleAddReview = async () => {
     const results = await createReview(newReview);
@@ -74,15 +74,17 @@ const Reviews = (businessReviews, bid) => {
   }, [review_list])
 
   return(
-    <>
+    <div className="wd-padding">
+       <h2>Reviews</h2>
        <div class="form-group">
-          <label for="reviews">Add a Review</label>
           <textarea class="form-control" id="reviews" rows="3" onChange={handleReviewText}></textarea>
        </div>
 
-       <button className="btn btn-primary float-end" onClick={() => handleAddReview()}>
-         Add
-       </button>
+       <div className="row wd-padding">
+         <button className="btn btn-primary float-end" onClick={() => handleAddReview()}>
+           Add
+         </button>
+       </div>
 
        <ul className="list-group">
          {
@@ -90,17 +92,19 @@ const Reviews = (businessReviews, bid) => {
               return(
                 <>
                   <li className="list-group-item">
-                    {review.review}
-                    <i onClick={() => handleDeleteReview(review._id)} className="fas fa-remove fa-2x fa-pull-right"/>
-                    <i className="fas fa-edit fa-2x fa-pull-right" onClick={() => handleEditButton(review)}/>
+                    <div className="wd-right">
+                      <i className="fas fa-remove fa-2x fa-pull-right" onClick={() => handleDeleteReview(review._id)}/>
+                      <i className="fas fa-edit fa-2x fa-pull-right" onClick={() => handleEditButton(review)}/>
+                    </div>
+                    <p className="wd-left">{review.review}</p>
                   </li>
                 </>
               );
             })
          }
-         {showModal ? Modal(activeModal) : null}
        </ul>
-    </>
+       {showModal ? Modal(activeModal) : null}
+    </div>
   );
 }
 

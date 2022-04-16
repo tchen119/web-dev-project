@@ -15,13 +15,13 @@ function App() {
         <Routes>
           <Route path="signup" element={<SignUpScreen/>}/>
           <Route path="login" element={<LoginScreen/>}/>
-          <Route path="privacy" element={<PrivacyScreen/>}/>
           <Route path="/" element={<Restaurant/>}>
             <Route index element={<HomeScreen/>}/>
               <Route path="profile" element={<ProfileScreen/>}/>
               <Route path="search" element={<SearchScreen/>}/>
               <Route path="search/:term/:location" element={<SearchScreen/>}/>
               <Route path="search/details/:id" element={<DetailsScreen/>}/>
+              <Route path="privacy" element={<PrivacyScreen/>}/>
           </Route>
         </Routes>
       </div>

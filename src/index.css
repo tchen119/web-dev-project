@@ -12,7 +12,55 @@ code {
     monospace;
 }
 
-.wd-medium-image {
-  height: 200px;
-  width: 300px
+.wd-fill-image {
+  height: 100%;
+  width: 100%;
+}
+
+.wd-center {
+  text-align: center;
+}
+
+.wd-left {
+  text-align: left;
+}
+
+.wd-right {
+  float: right;
+}
+
+.wd-bold {
+  font-weight: bold;
+}
+
+.wd-form-border {
+  border-radius: 10px;
+  padding: 10px;
+  width: 50%;
+  margin: 20px;
+}
+
+.wd-padding {
+  padding: 10px;
+}
+
+.wd-small-image {
+  height: 100px;
+  width: 150px;
+  object-fit: cover;
+  float: right;
+}
+
+.wd-no-border {
+  border-style: none;
+}
+
+.wd-new-line {
+  white-space: pre-line;
+}
+
+.wd-label {
+  font-size: 12px;
+  padding: 3px;
+  border-radius: 5px;
 }

@@ -12,19 +12,23 @@ const Likes = (businessLikes, id) => {
 
   const getNumLikes = async () => {
     const response = await findLikes(bid);
-    return response.length;
+    setLikes(response.length);
   }
 
   const getNumDislikes = async () => {
     const response = await findDislikes(bid);
-    return response.length;
+    setDislikes(response.length);
   }
 
   const getCurrentStatus = async () => {
     const response = await findLike(currUser, bid);
-    console.log("checking status response");
-    console.log(response);
-    setCurrStatus(response[0].like);
+    if (response && response[0].like) {
+      setCurrStatus("like");
+    } else if (response && !response[0].like) {
+      setCurrStatus("dislike");
+    } else {
+      setCurrStatus("none");
+    }
   }
 
   const likeBusiness = async () => {
@@ -40,10 +44,10 @@ const Likes = (businessLikes, id) => {
   }
 
   const dislikeBusiness = async () => {
-    if (currStatus == "none") {
+    if (currStatus === "none") {
       const dislikeObject = {user_id: currUser, business_id: bid, like: false};
       const response = await addLike(dislikeObject);
-    } else if (currStatus == "like") {
+    } else if (currStatus === "like") {
       const response = await updateLike(currUser, bid, false);
       setLikes(likes - 1);
     }
@@ -51,34 +55,31 @@ const Likes = (businessLikes, id) => {
     setDislikes(dislikes + 1);
   }
 
-  useEffect(async () => {
-    const numLikes = await getNumLikes();
-    const numDislikes = await getNumDislikes();
-    setLikes(numLikes);
-    setDislikes(numDislikes);
-    //fix dislikes
-    const statusData = await getCurrentStatus();
+  useEffect(() => {
+    getNumLikes();
+    getNumDislikes();
+    getCurrentStatus();
   }, []);
 
   return(
     <>
-      {currStatus == "like" ?
+      {currStatus === "like" ?
         <button className="btn btn-primary" disabled>
-          Like &nbsp; {likes}
+          Likes &nbsp; {likes}
         </button>
         :
         <button className="btn btn-primary" onClick={likeBusiness}>
-          Like &nbsp; {likes}
+          Likes &nbsp; {likes}
         </button>
       }
       &nbsp;
-      {currStatus == "dislike" ?
+      {currStatus === "dislike" ?
         <button className="btn btn-primary" disabled>
-          Dislike &nbsp; {dislikes}
+          Dislikes &nbsp; {dislikes}
         </button>
         :
         <button className="btn btn-primary" onClick={dislikeBusiness}>
-          Dislike &nbsp; {dislikes}
+          Dislikes &nbsp; {dislikes}
         </button>
       }
     </>
@@ -86,31 +87,3 @@ const Likes = (businessLikes, id) => {
 }
 
 export default Likes;
-
-//  let status = "none";
-
-//  let likesList = [];
-//  let dislikesList = [];
-
-//  for (var key in allLikes) {
-//    if (allLikes[key].like == true) {
-//      likesList = [...likesList, allLikes[key]];
-//    } else {
-//      dislikesList = [...dislikesList, allLikes[key]];
-//    }
-//    if (allLikes[key].user_id == currUser && allLikes[key].business_id == bid) {
-//      if (allLikes[key].like) {
-//        status = "like";
-//      } else {
-//        status = "dislike";
-//      }
-//    }
-//  }
-//  const likedStatus = likesList.find((item) => { return item.user_id == currUser && item.business_id == bid});
-//  if (likedStatus) {
-//    setCurrStatus("like");
-//  }
-//  const dislikeStatus = dislikesList.find((item) => { return item.user_id == currUser && item.business_id == bid});
-//  if (dislikeStatus) {
-//    setCurrStatus("dislike");
-//  }

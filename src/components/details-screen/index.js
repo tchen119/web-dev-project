@@ -36,13 +36,47 @@ const DetailsScreen = () => {
 
   return(
     <>
-      <h1>{businessDetails.name}</h1>
-      <img src={businessDetails.image_url} className="wd-medium-image"/>
-      <h2> Phone: {businessDetails.phone} </h2>
-      <h2> Rating: {businessDetails.rating} </h2>
+      <h1 className="wd-center">{businessDetails.name}</h1>
 
-      <Likes businessLikes={likes} bid={businessDetails.id}/>
-      <Reviews businessReviews={reviews} bid={businessDetails.id}/>
+      <div className="container">
+        <div className="row">
+          <div className="col-sm">
+            <img className="wd-fill-image" src={businessDetails.photos ? businessDetails.photos[0] : ""}/>
+          </div>
+          <div className="col-sm">
+            <img className="wd-fill-image" src={businessDetails.photos ? businessDetails.photos[1] : ""}/>
+          </div>
+          <div className="col-sm">
+            <img className="wd-fill-image" src={businessDetails.photos ? businessDetails.photos[2] : ""}/>
+          </div>
+        </div>
+      </div>
+
+      <div className="container">
+        <div className="row">
+          <div className="col wd-padding">
+            <div class="card">
+              <div class="card-header wd-center">
+                Details
+              </div>
+              <div class="card-body">
+                <p class="card-text">Phone: {businessDetails.display_phone}</p>
+                <p class="card-text">Rating: {businessDetails.rating} </p>
+                <p class="card-text">Status: {businessDetails.hours && businessDetails.hours.is_open_now ? "Open" : "Closed"} </p>
+                <p class="card-text">Location: {businessDetails.location ? businessDetails.location.display_address : ""} </p>
+              </div>
+            </div>
+            <div className="wd-center wd-padding">
+              <Likes businessLikes={likes} bid={id}/>
+            </div>
+          </div>
+          <div className="col">
+            <div className="wd-center">
+              <Reviews businessReviews={reviews} bid={businessDetails.id}/>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
