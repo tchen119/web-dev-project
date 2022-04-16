@@ -13,12 +13,12 @@ export const findAllReviews = async (business_id) => {
   return reviews;
 }
 
-export const deleteReview = async (review) => {
-  const response = await axios.delete(`${REVIEWS_API}/${review._id}`);
+export const deleteReview = async (id) => {
+  const response = await axios.delete(`${REVIEWS_API}/${id}`);
   return response.data;
 }
 
-export const updateReview = async (review) => {
-  const response = await axios.put(`${REVIEWS_API}/${review._id}`, review);
+export const updateReview = async (id, review) => {
+  const response = await axios.put(`${REVIEWS_API}/${id}`, {review: review});
   return response.data;
 }

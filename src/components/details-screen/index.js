@@ -2,6 +2,7 @@ import React, {useRef, useState, useEffect} from "react";
 import {useParams, Link} from "react-router-dom";
 import {getBusinessDetails} from "../../services/yelp-services";
 import {findAllReviews} from "../../services/reviews-services";
+import {findAllLikes} from "../../services/likes-services";
 import Likes from './likes';
 import Reviews from './reviews';
 import '../../index.css';
@@ -9,6 +10,7 @@ import '../../index.css';
 const DetailsScreen = () => {
   const [businessDetails, setBusinessDetails] = useState({});
   const [reviews, setReviews] = useState({});
+  const [likes, setLikes] = useState({});
   const {id} = useParams();
 
   const fetchBusinessDetails = async () => {
@@ -19,12 +21,17 @@ const DetailsScreen = () => {
   const fetchBusinessReviews = async () => {
     const results = await findAllReviews(id);
     setReviews(results);
-    console.log(results);
+  }
+
+  const fetchBusinessLikes = async () => {
+    const results = await findAllLikes(id);
+    setLikes(results);
   }
 
   useEffect(() => {
     fetchBusinessDetails();
     fetchBusinessReviews();
+    fetchBusinessLikes();
   }, []);
 
   return(
@@ -34,7 +41,7 @@ const DetailsScreen = () => {
       <h2> Phone: {businessDetails.phone} </h2>
       <h2> Rating: {businessDetails.rating} </h2>
 
-      <Likes/>
+      <Likes businessLikes={likes} bid={businessDetails.id}/>
       <Reviews businessReviews={reviews} bid={businessDetails.id}/>
     </>
   );

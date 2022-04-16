@@ -1,11 +1,12 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
 import {deleteReview} from '../../services/reviews-services';
 
 const ReviewItem = (review) => {
   const data = review.review;
+
   const handleDeleteReview = async () => {
-    const response = await deleteReview(data);
+    const response = await deleteReview(data._id);
     console.log(response);
   }
   const handleEditReview = async () => {
