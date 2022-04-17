@@ -13,6 +13,13 @@ export const findAllReviews = async (business_id) => {
   return reviews;
 }
 
+export const findAllReviewsByUser = async (user_id) => {
+  const API = 'http://localhost:4000/api/users/reviews';
+  const response = await axios.get(`${API}/${user_id}`);
+  const reviews = response.data;
+  return reviews;
+}
+
 export const deleteReview = async (id) => {
   const response = await axios.delete(`${REVIEWS_API}/${id}`);
   return response.data;

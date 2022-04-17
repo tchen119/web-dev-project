@@ -11,6 +11,7 @@ const Reviews = (businessReviews, bid) => {
   const [activeModal, setActiveModal] = useState({});
   const user_id = "1";
   const loggedIn = true;
+  const admin = true;
 
   const handleAddReview = async () => {
     const results = await createReview(newReview);
@@ -75,35 +76,50 @@ const Reviews = (businessReviews, bid) => {
 
   return(
     <div className="wd-padding">
-       <h2>Reviews</h2>
-       <div class="form-group">
-          <textarea class="form-control" id="reviews" rows="3" onChange={handleReviewText}></textarea>
-       </div>
+      <div class="card">
+        <div class="card-header">
+          Reviews
+        </div>
+        <div class="card-body">
+          {loggedIn ?
+            <div>
+              <div class="form-group">
+                <textarea class="form-control" id="reviews" rows="3" onChange={handleReviewText}></textarea>
+              </div>
+              <div className="row wd-padding">
+                <button className="btn btn-primary float-end" onClick={() => handleAddReview()}>
+                   Add
+                </button>
+              </div>
+            </div>
+            :
+            <p>Sign in to add a review!</p>
+          }
+          <ul className="list-group">
+             {allReviews.map && allReviews.map((review) => {
+                return(
+                  <>
+                    <li className="list-group-item">
+                      {loggedIn && admin ?
+                        <div className="wd-right">
+                            <i className="fas fa-remove fa-2x fa-pull-right" onClick={() => handleDeleteReview(review._id)}/>
+                            <i className="fas fa-edit fa-2x fa-pull-right" onClick={() => handleEditButton(review)}/>
+                        </div>
+                        : null
+                      }
+                      <p className="wd-left">{review.review}</p>
+                    </li>
+                  </>
+                );
+               })
+             }
+          </ul>
+          {showModal ? Modal(activeModal) : null}
+        </div>
+      </div>
 
-       <div className="row wd-padding">
-         <button className="btn btn-primary float-end" onClick={() => handleAddReview()}>
-           Add
-         </button>
-       </div>
 
-       <ul className="list-group">
-         {
-            allReviews.map && allReviews.map((review) => {
-              return(
-                <>
-                  <li className="list-group-item">
-                    <div className="wd-right">
-                      <i className="fas fa-remove fa-2x fa-pull-right" onClick={() => handleDeleteReview(review._id)}/>
-                      <i className="fas fa-edit fa-2x fa-pull-right" onClick={() => handleEditButton(review)}/>
-                    </div>
-                    <p className="wd-left">{review.review}</p>
-                  </li>
-                </>
-              );
-            })
-         }
-       </ul>
-       {showModal ? Modal(activeModal) : null}
+
     </div>
   );
 }

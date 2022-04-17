@@ -64,3 +64,11 @@ code {
   padding: 3px;
   border-radius: 5px;
 }
+
+.wd-width-75 {
+  width: 75%;
+}
+
+.wd-height-250 {
+  height: 250px;
+}

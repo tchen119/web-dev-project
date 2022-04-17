@@ -5,6 +5,7 @@ const Likes = (businessLikes, id) => {
   const allLikes = businessLikes.businessLikes;
   const bid = businessLikes.bid;
   const currUser = "2";
+  const loggedIn = true;
 
   const [currStatus, setCurrStatus] = useState("none");
   const [likes, setLikes] = useState(0);
@@ -63,7 +64,7 @@ const Likes = (businessLikes, id) => {
 
   return(
     <>
-      {currStatus === "like" ?
+      {!loggedIn || currStatus === "like" ?
         <button className="btn btn-primary" disabled>
           Likes &nbsp; {likes}
         </button>
@@ -73,7 +74,7 @@ const Likes = (businessLikes, id) => {
         </button>
       }
       &nbsp;
-      {currStatus === "dislike" ?
+      {!loggedIn || currStatus === "dislike" ?
         <button className="btn btn-primary" disabled>
           Dislikes &nbsp; {dislikes}
         </button>

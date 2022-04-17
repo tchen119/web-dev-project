@@ -19,6 +19,13 @@ export const findAllLikes = async (business_id) => {
   return likes;
 }
 
+export const findAllLikesByUser = async (user_id) => {
+  const API = 'http://localhost:4000/api/users/likes';
+  const response = await axios.get(`${API}/${user_id}`);
+  const likes = response.data;
+  return likes;
+}
+
 export const findLikes = async (business_id) => {
   const response = await axios.get(`${LIKES_API}/${business_id}`);
   return response.data;

@@ -38,15 +38,15 @@ const DetailsScreen = () => {
     <>
       <h1 className="wd-center">{businessDetails.name}</h1>
 
-      <div className="container">
+      <div className="container wd-width-75">
         <div className="row">
-          <div className="col-sm">
+          <div className="col-sm wd-height-250">
             <img className="wd-fill-image" src={businessDetails.photos ? businessDetails.photos[0] : ""}/>
           </div>
-          <div className="col-sm">
+          <div className="col-sm wd-height-250">
             <img className="wd-fill-image" src={businessDetails.photos ? businessDetails.photos[1] : ""}/>
           </div>
-          <div className="col-sm">
+          <div className="col-sm wd-height-250">
             <img className="wd-fill-image" src={businessDetails.photos ? businessDetails.photos[2] : ""}/>
           </div>
         </div>
@@ -60,8 +60,20 @@ const DetailsScreen = () => {
                 Details
               </div>
               <div class="card-body">
-                <p class="card-text">Phone: {businessDetails.display_phone}</p>
+                <p class="card-text">
+                  Tags: &nbsp;
+                  {businessDetails.categories && businessDetails.categories.map((category) => {
+                    return(
+                      <>
+                        <span className="wd-label bg-warning">{category.title}</span>
+                        &nbsp;
+                      </>
+                    );
+                  })}
+                </p>
                 <p class="card-text">Rating: {businessDetails.rating} </p>
+                <p class="card-text">Price: {businessDetails.price} </p>
+                <p class="card-text">Phone: {businessDetails.display_phone}</p>
                 <p class="card-text">Status: {businessDetails.hours && businessDetails.hours.is_open_now ? "Open" : "Closed"} </p>
                 <p class="card-text">Location: {businessDetails.location ? businessDetails.location.display_address : ""} </p>
               </div>
