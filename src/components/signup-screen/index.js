@@ -1,10 +1,17 @@
 import React from "react";
+import {Provider} from "react-redux";
+import {createStore, combineReducers} from "redux";
+import userReducer from "../../reducers/user-reducer";
+import SignUpForm from "./signup-form";
 
 const SignUpScreen = () => {
+  const reducers = combineReducers({userReducer})
+  const store = createStore(reducers);
+
   return(
-    <>
-      <h1>Signup</h1>
-    </>
+    <Provider store={store}>
+      <SignUpForm/>
+    </Provider>
   );
 }
 
