@@ -56,6 +56,10 @@ const Likes = (businessLikes, id) => {
     setDislikes(dislikes + 1);
   }
 
+  const unlikeBusiness = () => {
+    console.log("unliked");
+  }
+
   useEffect(() => {
     getNumLikes();
     getNumDislikes();
@@ -65,7 +69,7 @@ const Likes = (businessLikes, id) => {
   return(
     <>
       {!loggedIn || currStatus === "like" ?
-        <button className="btn btn-primary" disabled>
+        <button className="btn btn-primary" disabled onClick={unlikeBusiness}>
           Likes &nbsp; {likes}
         </button>
         :

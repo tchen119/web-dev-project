@@ -11,7 +11,9 @@ const Reviews = (businessReviews, bid) => {
   const [activeModal, setActiveModal] = useState({});
   const user_id = "1";
   const loggedIn = true;
-  const admin = true;
+  const admin = false;
+  const firstName = "John";
+  const lastName = "Smith";
 
   const handleAddReview = async () => {
     const results = await createReview(newReview);
@@ -100,13 +102,14 @@ const Reviews = (businessReviews, bid) => {
                 return(
                   <>
                     <li className="list-group-item">
-                      {loggedIn && admin ?
+                      {loggedIn && (admin || review.user_id === user_id) ?
                         <div className="wd-right">
                             <i className="fas fa-remove fa-2x fa-pull-right" onClick={() => handleDeleteReview(review._id)}/>
                             <i className="fas fa-edit fa-2x fa-pull-right" onClick={() => handleEditButton(review)}/>
                         </div>
                         : null
                       }
+                      <p className="wd-bold wd-left">{firstName + " " + lastName}</p>
                       <p className="wd-left">{review.review}</p>
                     </li>
                   </>
@@ -117,9 +120,6 @@ const Reviews = (businessReviews, bid) => {
           {showModal ? Modal(activeModal) : null}
         </div>
       </div>
-
-
-
     </div>
   );
 }
