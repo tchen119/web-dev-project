@@ -1,4 +1,4 @@
-import {CREATE_USER} from '../actions/user-actions';
+import {CREATE_USER, FIND_USER} from '../actions/user-actions';
 
 const userReducer = (state, action) => {
   switch (action.type) {
@@ -7,6 +7,8 @@ const userReducer = (state, action) => {
         action.user,
         ...state
       ]
+    case FIND_USER:
+      return action.user;
     default:
       return [];
   }
