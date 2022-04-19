@@ -21,7 +21,8 @@ export const UserProvider = ({children}) => {
   const signup = async (credentials) => {
     try {
       const response = await createUser(credentials);
-      setUser(response);
+      setUser(response[0]);
+      setLoggedIn(true);
     } catch (e) {
       throw e;
     }
