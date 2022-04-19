@@ -1,28 +1,67 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import Logout from '../logout';
+import {profile} from "../../services/user-services";
 
 const NavigationBar = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const getCurrUser = async () => {
+    try {
+      const user = await profile();
+      setLoggedIn(true);
+    } catch (e) {
+      setLoggedIn(false);
+    }
+  }
+
+  useEffect(() => {
+    getCurrUser();
+  }, [loggedIn]);
+
   return(
     <>
-      <nav class="navbar navbar-expand-sm navbar-light bg-light">
-        <a class="navbar-brand">Restaurants</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <a className="navbar-brand">Restaurants</a>
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item active">
-              <Link className="nav-link" to="/">Home</Link>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav w-100 row">
+            <li className="nav-item active col-1">
+              <a className="nav-link" href="/">Home</a>
             </li>
-            <li class="nav-item">
-              <Link className="nav-link" to="/profile">Profile</Link>
+            {loggedIn ?
+              <li className="nav-item col-1">
+                <a className="nav-link" href="/profile">Profile</a>
+              </li>
+              :
+              null
+            }
+            <li className="nav-item col-1">
+              <a className="nav-link" href="/search">Search</a>
             </li>
-            <li class="nav-item">
-              <Link className="nav-link" to="/search">Search</Link>
+            <li className="nav-item col-6">
+              <a className="nav-link" href="/privacy">Privacy Policy</a>
             </li>
-            <li class="nav-item">
-              <Link className="nav-link" to="/privacy">Privacy</Link>
-            </li>
+            {!loggedIn ?
+              <>
+                <li className="nav-item col-2">
+                  <a className="nav-link" href="/signup">Sign Up</a>
+                </li>
+                <li className="nav-item col-2">
+                  <a className="nav-link" href="/login">Log in</a>
+                </li>
+              </>
+              :
+              null
+            }
+            {loggedIn ?
+              <li className="nav-item col-1">
+                <Logout/>
+              </li>
+              :
+              null
+            }
           </ul>
         </div>
       </nav>

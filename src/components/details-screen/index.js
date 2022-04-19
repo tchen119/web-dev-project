@@ -6,12 +6,14 @@ import {findAllLikes} from "../../services/likes-services";
 import Likes from './likes';
 import Reviews from './reviews';
 import '../../index.css';
+import {useUser} from "../../contexts/user-context";
 
 const DetailsScreen = () => {
   const [businessDetails, setBusinessDetails] = useState({});
   const [reviews, setReviews] = useState({});
   const [likes, setLikes] = useState({});
   const {id} = useParams();
+  const {user, checkLoggedIn} = useUser();
 
   const fetchBusinessDetails = async () => {
     const results = await getBusinessDetails(id);
@@ -32,6 +34,7 @@ const DetailsScreen = () => {
     fetchBusinessDetails();
     fetchBusinessReviews();
     fetchBusinessLikes();
+    checkLoggedIn();
   }, []);
 
   return(
