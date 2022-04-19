@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {profile} from "../../services/user-services";
 import {findAllReviews, createReview, deleteReview, updateReview} from '../../services/reviews-services';
+import {findUserById} from "../../services/user-services";
+import {useUser} from "../../contexts/user-context";
 
 const Reviews = (businessReviews, bid) => {
   const review_list = businessReviews.businessReviews;
@@ -10,32 +12,31 @@ const Reviews = (businessReviews, bid) => {
   const [updatedReview, setUpdatedReview] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [activeModal, setActiveModal] = useState({});
-  const [currUser, setCurrUser] = useState({});
-  const [userId, setUserId] = useState("");
-  const [admin, setAdmin] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
+  // const [currUser, setCurrUser] = useState({});
+  // const [userId, setUserId] = useState("");
+  // const [admin, setAdmin] = useState(false);
+  // const [loggedIn, setLoggedIn] = useState(false);
+  const {user, checkLoggedIn, loggedIn} = useUser();
 
-  const getCurrUser = async () => {
-    try {
-      const user = await profile();
-      setCurrUser(user[0]);
-      setUserId(user[0]._id);
-      setAdmin(user[0].admin);
-      setLoggedIn(true);
-    } catch (e) {
-      setLoggedIn(false);
-    }
-  }
+//  const getCurrUser = async () => {
+//    try {
+//      const user = await profile();
+//      setCurrUser(user[0]);
+//      setUserId(user[0]._id);
+//      setAdmin(user[0].admin);
+//      setLoggedIn(true);
+//    } catch (e) {
+//      setLoggedIn(false);
+//    }
+//  }
 
   const handleAddReview = async () => {
-    console.log("new review");
-    console.log(newReview);
     const results = await createReview(newReview);
     updateAllReviews();
   }
 
   const handleReviewText = (e) => {
-    const review = {review: e.target.value, user_id: userId, business_id: businessReviews.bid};
+    const review = {review: e.target.value, user_id: user._id, business_id: businessReviews.bid, first_name: user.firstName, last_name: user.lastName};
     setNewReview(review);
   }
 
@@ -67,10 +68,6 @@ const Reviews = (businessReviews, bid) => {
     setAllReviews(getAllReviews);
   }
 
-  const getNameOfReview = () => {
-    return "John Smith";
-  }
-
   const Modal = (review) => {
     return(
       <div class="modal-dialog">
@@ -92,7 +89,8 @@ const Reviews = (businessReviews, bid) => {
 
   useEffect(() => {
     setAllReviews(review_list);
-    getCurrUser();
+    checkLoggedIn();
+    //getCurrUser();
   }, [review_list])
 
   return(
@@ -121,14 +119,14 @@ const Reviews = (businessReviews, bid) => {
                 return(
                   <>
                     <li className="list-group-item">
-                      {loggedIn && (admin || review.user_id === userId) ?
+                      {loggedIn && (review.user_id === user._id || user.admin) ?
                         <div className="wd-right">
                             <i className="fas fa-remove fa-2x fa-pull-right" onClick={() => handleDeleteReview(review._id)}/>
                             <i className="fas fa-edit fa-2x fa-pull-right" onClick={() => handleEditButton(review)}/>
                         </div>
                         : null
                       }
-                      <p className="wd-bold wd-left">{getNameOfReview()}</p>
+                      <p className="wd-bold wd-left">{review.first_name + " " + review.last_name}</p>
                       <p className="wd-left">{review.review}</p>
                     </li>
                   </>
@@ -139,9 +137,6 @@ const Reviews = (businessReviews, bid) => {
           {showModal ? Modal(activeModal) : null}
         </div>
       </div>
-
-
-
     </div>
   );
 }

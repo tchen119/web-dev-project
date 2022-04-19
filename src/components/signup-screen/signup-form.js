@@ -3,6 +3,7 @@ import {useDispatch} from "react-redux";
 //import {createUser} from "../../actions/user-actions";
 import {useNavigate} from "react-router-dom";
 import {createUser} from "../../services/user-services";
+import {useUser} from "../../contexts/user-context";
 
 const SignUpForm = () => {
   const [firstName, setFirstName] = useState('');
@@ -20,6 +21,7 @@ const SignUpForm = () => {
   const firstNameRef = useRef();
   const lastNameRef = useRef();
   const adminRef = useRef();
+  const {signup} = useUser();
 
   const firstNameChangeHandler = (event) => {
     setFirstName(event.target.value);
@@ -72,10 +74,9 @@ const SignUpForm = () => {
           lastName: lastNameRef.current.value,
           email: emailRef.current.value,
           password: passwordRef.current.value,
-          admin: adminRef.current.value
+          admin: adminRef.current.checked
         }
-        console.log(userObject);
-        const response = await createUser(userObject);
+        const response = await signup(userObject);
         navigate('/login');
       } catch (e) {
         alert('email already in use');

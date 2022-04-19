@@ -11,7 +11,6 @@ const api = axios.create({withCredentials: true});
 
 export const createUser = async (user) => {
   const response = await api.post(USER_SIGNUP_API, user);
-  console.log(response.status);
   return response.data
 }
 

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {addLike, updateLike, findLike, findLikes, findDislikes} from "../../services/likes-services";
 import {profile} from "../../services/user-services";
+import {useUser} from "../../contexts/user-context";
 
 const Likes = (businessLikes, id) => {
   const allLikes = businessLikes.businessLikes;
@@ -9,24 +10,7 @@ const Likes = (businessLikes, id) => {
   const [currStatus, setCurrStatus] = useState("none");
   const [likes, setLikes] = useState(0);
   const [dislikes, setDislikes] = useState(0);
-
-  const [currUser, setCurrUser] = useState({});
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [userId, setUserId] = useState("");
-
-  const getCurrUser = async () => {
-    try {
-      const user = await profile();
-      setCurrUser(user[0]);
-      setUserId(user[0]._id);
-      setLoggedIn(true);
-      console.log("from curr user");
-      console.log(currUser);
-      console.log(userId);
-    } catch (e) {
-      setLoggedIn(false);
-    }
-  }
+  const {user, checkLoggedIn, loggedIn} = useUser();
 
   const getNumLikes = async () => {
     const response = await findLikes(bid);
@@ -39,13 +23,8 @@ const Likes = (businessLikes, id) => {
   }
 
   const getCurrentStatus = async () => {
-    console.log("looking for status");
-    console.log(currUser);
-    console.log(userId);
-    if (userId) {
-      const response = await findLike(userId, bid);
-      console.log("current status");
-      console.log(response);
+    if (user) {
+      const response = await findLike(user._id, bid);
       if (response && response[0].like) {
         setCurrStatus("like");
       } else if (response && !response[0].like) {
@@ -58,10 +37,10 @@ const Likes = (businessLikes, id) => {
 
   const likeBusiness = async () => {
     if (currStatus == "none") {
-      const likeObject = {user_id: userId, business_id: bid, like: true};
+      const likeObject = {user_id: user._id, business_id: bid, like: true};
       const response = await addLike(likeObject);
     } else if (currStatus == "dislike") {
-      const response = await updateLike(userId, bid, true);
+      const response = await updateLike(user._id, bid, true);
       setDislikes(dislikes - 1);
     }
     setCurrStatus("like");
@@ -70,10 +49,10 @@ const Likes = (businessLikes, id) => {
 
   const dislikeBusiness = async () => {
     if (currStatus === "none") {
-      const dislikeObject = {user_id: userId, business_id: bid, like: false};
+      const dislikeObject = {user_id: user._id, business_id: bid, like: false};
       const response = await addLike(dislikeObject);
     } else if (currStatus === "like") {
-      const response = await updateLike(userId, bid, false);
+      const response = await updateLike(user._id, bid, false);
       setLikes(likes - 1);
     }
     setCurrStatus("dislike");
@@ -81,7 +60,8 @@ const Likes = (businessLikes, id) => {
   }
 
   useEffect(() => {
-    getCurrUser();
+    checkLoggedIn();
+    //getCurrUser();
     getNumLikes();
     getNumDislikes();
     getCurrentStatus();

@@ -6,11 +6,13 @@ const UserContext = React.createContext();
 
 export const UserProvider = ({children}) => {
   const [user, setUser] = useState({});
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const login = async (credentials) => {
     try {
       const response = await findUser(credentials);
-      setUser(response);
+      setUser(response[0]);
+      setLoggedIn(true);
     } catch (e) {
       throw e;
     }
@@ -28,19 +30,21 @@ export const UserProvider = ({children}) => {
   const signout = async () => {
     const response = await logout();
     setUser(null);
+    setLoggedIn(false);
   }
 
   const checkLoggedIn = async () => {
     try {
       const response = await profile();
-      setUser(response);
+      setUser(response[0]);
+      setLoggedIn(true);
       return response;
     } catch (e) {
       throw e;
     }
   }
 
-  const value = {login, signup, signout, checkLoggedIn, user};
+  const value = {login, signup, signout, checkLoggedIn, user, loggedIn};
 
   return (
     <UserContext.Provider value={value}>

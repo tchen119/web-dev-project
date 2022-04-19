@@ -14,7 +14,7 @@ const LoginForm = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
-  // const {login} = useUser();
+  const {login} = useUser();
 
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);
@@ -39,7 +39,7 @@ const LoginForm = () => {
     } else {
       try {
         const userObject = {email: emailRef.current.value, password: passwordRef.current.value}
-        const response = await findUser(userObject);
+        const response = await login(userObject);
         navigate('/profile');
       } catch (e) {
         alert("Account not found. Please try again");
