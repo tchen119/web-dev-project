@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {profile} from "../../services/user-services";
 import {findAllReviews, createReview, deleteReview, updateReview} from '../../services/reviews-services';
 
 const Reviews = (businessReviews, bid) => {
@@ -9,17 +10,32 @@ const Reviews = (businessReviews, bid) => {
   const [updatedReview, setUpdatedReview] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [activeModal, setActiveModal] = useState({});
-  const user_id = "1";
-  const loggedIn = true;
-  const admin = true;
+  const [currUser, setCurrUser] = useState({});
+  const [userId, setUserId] = useState("");
+  const [admin, setAdmin] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const getCurrUser = async () => {
+    try {
+      const user = await profile();
+      setCurrUser(user[0]);
+      setUserId(user[0]._id);
+      setAdmin(user[0].admin);
+      setLoggedIn(true);
+    } catch (e) {
+      setLoggedIn(false);
+    }
+  }
 
   const handleAddReview = async () => {
+    console.log("new review");
+    console.log(newReview);
     const results = await createReview(newReview);
     updateAllReviews();
   }
 
   const handleReviewText = (e) => {
-    const review = {review: e.target.value, user_id: user_id, business_id: businessReviews.bid};
+    const review = {review: e.target.value, user_id: userId, business_id: businessReviews.bid};
     setNewReview(review);
   }
 
@@ -51,6 +67,10 @@ const Reviews = (businessReviews, bid) => {
     setAllReviews(getAllReviews);
   }
 
+  const getNameOfReview = () => {
+    return "John Smith";
+  }
+
   const Modal = (review) => {
     return(
       <div class="modal-dialog">
@@ -72,6 +92,7 @@ const Reviews = (businessReviews, bid) => {
 
   useEffect(() => {
     setAllReviews(review_list);
+    getCurrUser();
   }, [review_list])
 
   return(
@@ -100,13 +121,14 @@ const Reviews = (businessReviews, bid) => {
                 return(
                   <>
                     <li className="list-group-item">
-                      {loggedIn && admin ?
+                      {loggedIn && (admin || review.user_id === userId) ?
                         <div className="wd-right">
                             <i className="fas fa-remove fa-2x fa-pull-right" onClick={() => handleDeleteReview(review._id)}/>
                             <i className="fas fa-edit fa-2x fa-pull-right" onClick={() => handleEditButton(review)}/>
                         </div>
                         : null
                       }
+                      <p className="wd-bold wd-left">{getNameOfReview()}</p>
                       <p className="wd-left">{review.review}</p>
                     </li>
                   </>

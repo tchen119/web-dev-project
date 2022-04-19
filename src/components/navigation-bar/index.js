@@ -1,9 +1,26 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
+import Logout from '../logout';
+import {profile} from "../../services/user-services";
 
 const NavigationBar = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const getCurrUser = async () => {
+    try {
+      const user = await profile();
+      setLoggedIn(true);
+    } catch (e) {
+      setLoggedIn(false);
+    }
+  }
+
+  useEffect(() => {
+    getCurrUser();
+  }, [loggedIn]);
+
   return(
     <>
-      <nav className="navbar navbar-expand-sm navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <a className="navbar-brand">Restaurants</a>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
@@ -13,21 +30,38 @@ const NavigationBar = () => {
             <li className="nav-item active col-1">
               <a className="nav-link" href="/">Home</a>
             </li>
-            <li className="nav-item col-1">
-              <a className="nav-link" href="/profile">Profile</a>
-            </li>
+            {loggedIn ?
+              <li className="nav-item col-1">
+                <a className="nav-link" href="/profile">Profile</a>
+              </li>
+              :
+              null
+            }
             <li className="nav-item col-1">
               <a className="nav-link" href="/search">Search</a>
             </li>
-            <li className="nav-item col-7">
+            <li className="nav-item col-6">
               <a className="nav-link" href="/privacy">Privacy Policy</a>
             </li>
-            <li className="nav-item col-1">
-              <a className="nav-link" href="/signup">Sign Up</a>
-            </li>
-            <li className="nav-item col-1">
-              <a className="nav-link" href="/login">Log in</a>
-            </li>
+            {!loggedIn ?
+              <>
+                <li className="nav-item col-2">
+                  <a className="nav-link" href="/signup">Sign Up</a>
+                </li>
+                <li className="nav-item col-2">
+                  <a className="nav-link" href="/login">Log in</a>
+                </li>
+              </>
+              :
+              null
+            }
+            {loggedIn ?
+              <li className="nav-item col-1">
+                <Logout/>
+              </li>
+              :
+              null
+            }
           </ul>
         </div>
       </nav>

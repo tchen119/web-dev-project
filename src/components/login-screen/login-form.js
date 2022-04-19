@@ -1,12 +1,20 @@
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
 import {useDispatch} from "react-redux";
-import {findUser} from "../../actions/user-actions";
+import {useNavigate} from "react-router-dom";
+//import {findUser} from "../../actions/user-actions";
+import {findUser} from "../../services/user-services";
+import axios from 'axios';
+import {useUser} from "../context/user-context";
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState({email: '', password: ''});
   const dispatch = useDispatch();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const navigate = useNavigate();
+  // const {login} = useUser();
 
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);
@@ -16,10 +24,26 @@ const LoginForm = () => {
     setPassword(event.target.value);
   }
 
-  const login = () => {
-    if (email !== '' && password !== '') {
-      setUser({email: email, password: password});
-      findUser(dispatch, user);
+//  const login = () => {
+//    if (email !== '' && pass !== '') {
+//      setUser({email: email, password: password});
+//      findUser(dispatch, user);
+//    }
+//  }
+
+  const handleLogin = async () => {
+    if (!emailRef.current.value) {
+      alert("Please enter an email");
+    } else if (!passwordRef.current.value) {
+      alert("Please enter a password");
+    } else {
+      try {
+        const userObject = {email: emailRef.current.value, password: passwordRef.current.value}
+        const response = await findUser(userObject);
+        navigate('/profile');
+      } catch (e) {
+        alert("Account not found. Please try again");
+      }
     }
   }
 
@@ -32,6 +56,7 @@ const LoginForm = () => {
           <div className="row ms-3">
             <label className="col-11 form-label">Email:
               <input className="form-control"
+                     ref = {emailRef}
                      type="email"
                      placeholder="email"
                      id="email"
@@ -44,6 +69,7 @@ const LoginForm = () => {
           <div className="row ms-3">
             <label className="col-11 form-label">Password:
               <input className="form-control"
+                     ref = {passwordRef}
                      type="password"
                      placeholder="password"
                      id="password"
@@ -53,7 +79,7 @@ const LoginForm = () => {
             </label>
           </div>
 
-          <center><button className="btn btn-primary" type="button" onClick={login}>Log in!</button></center>
+          <center><button className="btn btn-primary" type="button" onClick={handleLogin}>Log in!</button></center>
         </div>
         <div className="col-4"></div>
       </div>
