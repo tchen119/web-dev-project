@@ -1,6 +1,6 @@
 import React, {useContext, useState} from "react";
 import axios from "axios";
-import {findUser, createUser, profile, logout} from "../../services/user-services";
+import {findUser, createUser, profile, logout} from "../services/user-services";
 
 const UserContext = React.createContext();
 

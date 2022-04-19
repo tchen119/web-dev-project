@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 //import {findUser} from "../../actions/user-actions";
 import {findUser} from "../../services/user-services";
 import axios from 'axios';
-import {useUser} from "../context/user-context";
+import {useUser} from "../../contexts/user-context";
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');

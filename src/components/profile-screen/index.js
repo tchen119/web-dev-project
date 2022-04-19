@@ -2,12 +2,12 @@ import React, {useState, useRef, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {profile} from "../../services/user-services";
 import axios from 'axios';
-import {useUser} from "../context/user-context";
+import {useUser} from "../../contexts/user-context";
 
 const ProfileScreen = () => {
   const [currUser, setCurrUser] = useState({});
   const navigate = useNavigate();
-  // const {user} = useUser();
+  const {user} = useUser();
 
   const getCurrUser = async () => {
     try {
