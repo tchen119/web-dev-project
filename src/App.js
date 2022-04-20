@@ -20,6 +20,7 @@ function App() {
             <Route path="/" element={<Restaurant/>}>
               <Route index element={<HomeScreen/>}/>
                 <Route path="profile" element={<ProfileScreen/>}/>
+                <Route path="profile/:id" element={<ProfileScreen/>}/>
                 <Route path="search" element={<SearchScreen/>}/>
                 <Route path="search/:term/:location" element={<SearchScreen/>}/>
                 <Route path="search/details/:id" element={<DetailsScreen/>}/>
