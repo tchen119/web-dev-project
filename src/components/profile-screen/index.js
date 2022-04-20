@@ -7,8 +7,13 @@ const ProfileScreen = () => {
   const {user, checkLoggedIn, loggedIn} = useUser();
   const {id} = useParams();
   const [profileUser, setProfileUser] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!id && !loggedIn) {
+      navigate(`/login`);
+    }
+
     if (id) {
       getUser();
     } else {
@@ -64,7 +69,8 @@ const ProfileScreen = () => {
         <div>
           <label className="form-label">Password:
             <input className="form-control"
-                   type="text"
+                   type="password"
+                   disabled={true}
                    value={profileUser.password}>
             </input>
           </label>
