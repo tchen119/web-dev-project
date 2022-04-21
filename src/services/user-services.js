@@ -6,7 +6,7 @@ const USER_LOGIN_API = API_BASE + '/api/signin';
 const USER_PROFILE = API_BASE + '/api/profile';
 const USER_LOGOUT = API_BASE + '/api/signout';
 const USER_FIND_BY_ID = API_BASE + '/api/users';
-const USER_FAVORITE = API_BASE + '/api/favorite'
+const USER_FAVORITE = API_BASE + '/api/favorite';
 
 const api = axios.create({withCredentials: true});
 
@@ -36,7 +36,11 @@ export const logout = async () => {
 }
 
 export const userAddFavorite = async (bid) => {
-  console.log(bid);
   const response = await api.put(USER_FAVORITE, bid);
+  return response.data;
+}
+
+export const userRemoveFavorite = async (bid) => {
+  const response = await api.delete(`${USER_FAVORITE}/${bid}`);
   return response.data;
 }

@@ -1,6 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {addLike, updateLike, findLike, findLikes, findDislikes} from "../../services/likes-services";
-import {userAddFavorite, profile} from "../../services/user-services";
+import {
+  userAddFavorite,
+  profile,
+  userRemoveFavorite
+} from "../../services/user-services";
 import {useUser} from "../../contexts/user-context";
 
 const Likes = (businessLikes, id) => {
@@ -39,11 +43,11 @@ const Likes = (businessLikes, id) => {
     if (currStatus == "none") {
       const likeObject = {user_id: user._id, business_id: bid, like: true};
       const response = await addLike(likeObject);
-      const response2 = await userAddFavorite( {bid: bid});
     } else if (currStatus == "dislike") {
       const response = await updateLike(user._id, bid, true);
       setDislikes(dislikes - 1);
     }
+    const response2 = await userAddFavorite( {bid: bid});
     setCurrStatus("like");
     setLikes(likes + 1);
   }
@@ -56,6 +60,7 @@ const Likes = (businessLikes, id) => {
       const response = await updateLike(user._id, bid, false);
       setLikes(likes - 1);
     }
+    const response2 = await userRemoveFavorite(bid);
     setCurrStatus("dislike");
     setDislikes(dislikes + 1);
   }

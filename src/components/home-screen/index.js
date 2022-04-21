@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import Explore from "./explore";
 import Favorites from "./favorites";
-import PriorSearches from "./prior-searches";
+import RecentActivity from "./recent-activity";
 import {useUser} from "../../contexts/user-context";
 
 const HomeScreen = () => {
@@ -19,7 +19,7 @@ const HomeScreen = () => {
       {loggedIn &&
       <div className="col-4">
         <Favorites/>
-        <PriorSearches/>
+        <RecentActivity/>
       </div> }
     </div>
   );

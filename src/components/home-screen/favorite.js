@@ -16,7 +16,7 @@ const Favorite = ({fave}) => {
 
   return(
       <>
-        <li className="list-group-item" key={businessDetails.id}>
+        <li className="list-group-item overflow-auto" key={businessDetails.id}>
           <Link to={`/search/details/${businessDetails.id}`} style={{textDecoration: 'none'}}>
             <div className="text-dark wd-padding">
               <h5 className="wd-bold">{businessDetails.name}</h5>

@@ -7,6 +7,12 @@ export const createReview = async (review) => {
   return response.data
 }
 
+export const findRecentReviews = async () => {
+  const response = await axios.get(REVIEWS_API);
+  const reviews = response.data;
+  return reviews;
+}
+
 export const findAllReviews = async (business_id) => {
   const response = await axios.get(`${REVIEWS_API}/${business_id}`);
   const reviews = response.data;
