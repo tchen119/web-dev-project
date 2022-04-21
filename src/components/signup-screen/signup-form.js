@@ -12,7 +12,7 @@ const SignUpForm = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [admin, setAdmin] = useState(false);
-  const [user, setUser] = useState({firstName: '', lastName: '', email: '', password: '', admin: false});
+  const [user, setUser] = useState({firstName: '', lastName: '', email: '', password: '', admin: false, favorites: []});
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const emailRef = useRef();

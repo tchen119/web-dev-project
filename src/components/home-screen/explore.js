@@ -6,7 +6,6 @@ const Explore = () => {
   const [businesses, setBusinesses] = useState([]);
   const termRef = useRef("food");
   const locationRef = useRef("boston");
-  const navigate = useNavigate();
 
   const completeSearch = async() => {
     const search = {
@@ -14,7 +13,6 @@ const Explore = () => {
       location: locationRef.current
     };
     const results = await getBusinessesByTermAndLocation(search);
-    console.log(results)
     setBusinesses(results.businesses);
   }
 

@@ -6,20 +6,19 @@ import {findUserById} from "../../services/user-services";
 const ProfileScreen = () => {
   const {user, checkLoggedIn, loggedIn} = useUser();
   const {id} = useParams();
-  const [profileUser, setProfileUser] = useState({});
+  const [profileUser, setProfileUser] = useState(user);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!id && !loggedIn) {
-      navigate(`/login`);
-    }
+    checkLoggedIn();
 
     if (id) {
       getUser();
-    } else {
-      setProfileUser(user);
     }
-    checkLoggedIn();
+
+    if (!id && !loggedIn) {
+      //navigate(`/login`);
+    }
   }, []);
 
   const getUser = async () => {
@@ -38,7 +37,7 @@ const ProfileScreen = () => {
           <input className="form-control"
                  type="text"
                  disabled={!loggedIn}
-                 value={profileUser.firstName}>
+                 value={profileUser.firstName || user.firstName}>
           </input>
         </label>
       </div>
@@ -48,20 +47,20 @@ const ProfileScreen = () => {
           <input className="form-control"
                  type="text"
                  disabled={!loggedIn}
-                 value={profileUser.lastName}>
+                 value={profileUser.lastName || user.lastName}>
           </input>
         </label>
       </div>
 
 
-      {loggedIn &&
+      {loggedIn && !id &&
       <div>
         <div>
           <label className="form-label">Email:
             <input className="form-control"
                    type="text"
                    disabled={true}
-                   value={profileUser.email}>
+                   value={profileUser.email || user.email}>
             </input>
           </label>
         </div>
@@ -71,7 +70,24 @@ const ProfileScreen = () => {
             <input className="form-control"
                    type="password"
                    disabled={true}
-                   value={profileUser.password}>
+                   value={profileUser.password || user.password}>
+            </input>
+          </label>
+        </div>
+
+        <div>
+          <label className="form-label">New Password:
+            <input className="form-control"
+                   type="password"
+                   >
+            </input>
+          </label>
+        </div>
+
+        <div>
+          <label className="form-label">Confirm Password:
+            <input className="form-control"
+                   type="password">
             </input>
           </label>
         </div>
@@ -81,7 +97,7 @@ const ProfileScreen = () => {
             <input className="form-check-inline ms-2"
                    type="checkbox"
                    disabled={true}
-                   value={profileUser.admin}>
+                   value={profileUser.admin || user.admin}>
             </input>
           </label>
         </div>

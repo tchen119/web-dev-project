@@ -6,6 +6,7 @@ const USER_LOGIN_API = API_BASE + '/api/signin';
 const USER_PROFILE = API_BASE + '/api/profile';
 const USER_LOGOUT = API_BASE + '/api/signout';
 const USER_FIND_BY_ID = API_BASE + '/api/users';
+const USER_FAVORITE = API_BASE + '/api/favorite'
 
 const api = axios.create({withCredentials: true});
 
@@ -25,11 +26,17 @@ export const findUserById = async (user_id) => {
 }
 
 export const profile = async (user) => {
-  const response = await api.post(USER_PROFILE);
+  const response = await api.post(USER_PROFILE, user);
   return response.data;
 }
 
 export const logout = async () => {
   const response = await api.post(USER_LOGOUT);
+  return response.data;
+}
+
+export const userAddFavorite = async (bid) => {
+  console.log(bid);
+  const response = await api.put(USER_FAVORITE, bid);
   return response.data;
 }
