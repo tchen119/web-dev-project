@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {Link} from "react-router-dom";
 import {profile} from "../../services/user-services";
 import {findAllReviews, createReview, deleteReview, updateReview} from '../../services/reviews-services';
 import {findUserById} from "../../services/user-services";
@@ -127,7 +128,11 @@ const Reviews = ({businessReviews, bid, bName}) => {
                         </div>
                         : null
                       }
-                      <p className="wd-bold wd-left">{review.first_name + " " + review.last_name}</p>
+                      {loggedIn ?
+                        <Link to={`/profile/${review.user_id}`} style={{textDecoration: 'none'}}><p className="wd-bold wd-left">{review.first_name + " " + review.last_name}</p></Link>
+                        :
+                        <p className="wd-bold wd-left">{review.first_name + " " + review.last_name}</p>
+                      }
                       <p className="wd-left">{review.review}</p>
                     </li>
                   </>
