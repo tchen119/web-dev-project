@@ -1,13 +1,11 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 
 const Review = ({review}) => {
-  console.log(review)
-
   return(
       <li className="list-group-item">
-        <p className="wd-bold wd-left">{review.business_name}</p>
+        <Link className="wd-bold wd-left text-decoration-none" to={"/search/details/" + review.business_id}>{review.business_name}</Link>
         <p>{review.review}</p>
-
       </li>
   );
 }

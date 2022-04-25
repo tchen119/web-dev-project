@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {useUser} from "../../contexts/user-context";
-import {findUserById} from "../../services/user-services";
+import {findUserById, profile} from "../../services/user-services";
 import Favorite from "../home-screen/favorite";
 import {findAllReviewsByUser} from "../../services/reviews-services";
 import Reviews from "../details-screen/reviews";
@@ -31,7 +31,7 @@ const ProfileScreen = () => {
     } else {
       userReviews = await findAllReviewsByUser(user._id)
     }
-    setReviews(userReviews);
+    setReviews(userReviews.reverse());
   }
 
   useEffect(() => {
@@ -50,8 +50,9 @@ const ProfileScreen = () => {
 
   return(
     <>
-      <h1 className="mb-5">Profile</h1>
+      <h1 className="mb-5">{(id ? profileUser.firstName + " " + profileUser.lastName + "'s " : "") + "Profile"}</h1>
       <div className="row">
+        {loggedIn && !id &&
         <div className="col-6">
           <h2>User Information</h2>
           <div>
@@ -74,8 +75,6 @@ const ProfileScreen = () => {
             </label>
           </div>
 
-
-          {loggedIn && !id &&
           <div>
             <div>
               <label className="form-label">Email:
@@ -113,13 +112,16 @@ const ProfileScreen = () => {
                 </input>
               </label>
             </div>
-          </div>}
-        </div>
+          </div>
+        </div>}
 
         <div className="col-6">
           <h2>Favorite Restaurants</h2>
           <div className="wd-height-200 overflow-scroll">
-          {user.favorites.map((fave) => {
+          {profileUser.favorites && profileUser.favorites?.map((fave) => {
+            return <Favorite fave={fave}/>
+          })}
+          {!profileUser.favorites && user.favorites?.map((fave) => {
             return <Favorite fave={fave}/>
           })}
           </div>

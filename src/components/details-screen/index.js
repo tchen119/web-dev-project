@@ -82,7 +82,7 @@ const DetailsScreen = () => {
               </div>
             </div>
             <div className="wd-center wd-padding">
-              <Likes businessLikes={likes} bid={id}/>
+              <Likes businessLikes={likes} bid={id} bName={businessDetails.name}/>
             </div>
           </div>
           <div className="col">
