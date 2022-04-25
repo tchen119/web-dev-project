@@ -87,7 +87,7 @@ const DetailsScreen = () => {
           </div>
           <div className="col">
             <div className="wd-center">
-              <Reviews businessReviews={reviews} bid={businessDetails.id}/>
+              <Reviews businessReviews={reviews} bid={businessDetails.id} bName={businessDetails.name}/>
             </div>
           </div>
         </div>

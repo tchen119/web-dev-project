@@ -5,10 +5,9 @@ import {findAllReviews, createReview, deleteReview, updateReview} from '../../se
 import {findUserById} from "../../services/user-services";
 import {useUser} from "../../contexts/user-context";
 
-const Reviews = (businessReviews, bid) => {
-  const review_list = businessReviews.businessReviews;
+const Reviews = ({businessReviews, bid, bName}) => {
   const [newReview, setNewReview] = useState("");
-  const [allReviews, setAllReviews] = useState(review_list);
+  const [allReviews, setAllReviews] = useState(businessReviews);
   const [updatedReview, setUpdatedReview] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [activeModal, setActiveModal] = useState({});
@@ -37,7 +36,7 @@ const Reviews = (businessReviews, bid) => {
   }
 
   const handleReviewText = (e) => {
-    const review = {review: e.target.value, user_id: user._id, business_id: businessReviews.bid, business_name: businessReviews.businessName, first_name: user.firstName, last_name: user.lastName};
+    const review = {review: e.target.value, user_id: user._id, business_id: bid, business_name: bName, first_name: user.firstName, last_name: user.lastName};
     console.log(review);
     setNewReview(review);
   }
@@ -66,7 +65,7 @@ const Reviews = (businessReviews, bid) => {
   }
 
   const updateAllReviews = async () => {
-    const getAllReviews = await findAllReviews(businessReviews.bid);
+    const getAllReviews = await findAllReviews(bid);
     setAllReviews(getAllReviews);
   }
 
@@ -90,10 +89,10 @@ const Reviews = (businessReviews, bid) => {
   };
 
   useEffect(() => {
-    setAllReviews(review_list);
+    setAllReviews(businessReviews);
     checkLoggedIn();
     //getCurrUser();
-  }, [review_list])
+  }, [businessReviews])
 
   return(
     <div className="wd-padding">
