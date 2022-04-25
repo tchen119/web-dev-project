@@ -1,18 +1,10 @@
 import React, {useState, useRef, useEffect} from "react";
 import {useDispatch} from "react-redux";
-//import {createUser} from "../../actions/user-actions";
 import {useNavigate} from "react-router-dom";
 import {createUser} from "../../services/user-services";
 import {useUser} from "../../contexts/user-context";
 
 const SignUpForm = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [admin, setAdmin] = useState(false);
-  const [user, setUser] = useState({firstName: '', lastName: '', email: '', password: '', admin: false, favorites: []});
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const emailRef = useRef();
@@ -21,38 +13,9 @@ const SignUpForm = () => {
   const firstNameRef = useRef();
   const lastNameRef = useRef();
   const adminRef = useRef();
+  const adminPasswordRef = useRef();
   const {signup, checkLoggedIn} = useUser();
-
-  const firstNameChangeHandler = (event) => {
-    setFirstName(event.target.value);
-  }
-
-  const lastNameChangeHandler = (event) => {
-    setLastName(event.target.value);
-  }
-
-  const emailChangeHandler = (event) => {
-    setEmail(event.target.value);
-  }
-
-  const passwordChangeHandler = (event) => {
-    setPassword(event.target.value);
-  }
-
-  const confirmPasswordChangeHandler = (event) => {
-    setConfirmPassword(event.target.value);
-  }
-
-  const adminChangeHandler = (event) => {
-    setAdmin(event.target.value);
-  }
-
-//  const signUp = () => {
-//    if (email !== '' && password !== '' && password === confirmPassword) {
-//      setUser({firstName: firstName, lastName: lastName, email: email, password: password, admin: admin});
-//      createUser(dispatch, user);
-//    }
-//  }
+  const ADMIN_PASSWORD = "super_secret_password";
 
   const signUp = async () => {
     if (!emailRef.current.value) {
@@ -67,8 +30,13 @@ const SignUpForm = () => {
       alert("Please make sure passwords match.");
     }
 
-    if (emailRef.current.value && passwordRef.current.value && passwordRef.current.value === confirmPasswordRef.current.value) {
+    if (adminRef.current.checked && adminPasswordRef.current.value != ADMIN_PASSWORD) {
+      alert("Please enter correct admin password.");
+    }
+
+    if (emailRef.current.value && passwordRef.current.value && passwordRef.current.value === confirmPasswordRef.current.value && (!adminRef.current.checked || (adminRef.current.checked && adminPasswordRef.current.value === ADMIN_PASSWORD))) {
       try {
+        console.log("signing up");
         const userObject = {
           firstName: firstNameRef.current.value,
           lastName: lastNameRef.current.value,
@@ -91,8 +59,7 @@ const SignUpForm = () => {
   return(
     <>
       <div className="row">
-        <div className="col-4"></div>
-        <div className="col-4 container mt-4 pt-2 pb-4 border">
+        <div className="col-6 container mt-4 pt-2 pb-4 border px-2 bg-light">
           <center><h1>Signup</h1></center>
 
           <div className="row ms-3">
@@ -100,10 +67,8 @@ const SignUpForm = () => {
               <input className="form-control"
                      ref={firstNameRef}
                      type="text"
-                     placeholder="first name"
-                     id="firstName"
-                     onChange={firstNameChangeHandler}
-                     value={firstName}>
+                     placeholder="First Name"
+                     id="firstName">
               </input>
             </label>
           </div>
@@ -113,10 +78,8 @@ const SignUpForm = () => {
               <input className="form-control"
                      ref={lastNameRef}
                      type="text"
-                     placeholder="last name"
-                     id="lastName"
-                     onChange={lastNameChangeHandler}
-                     value={lastName}>
+                     placeholder="Last Name"
+                     id="lastName">
               </input>
             </label>
           </div>
@@ -126,10 +89,8 @@ const SignUpForm = () => {
               <input className="form-control"
                      ref={emailRef}
                      type="email"
-                     placeholder="email"
-                     id="email"
-                     onChange={emailChangeHandler}
-                     value={email}>
+                     placeholder="Email"
+                     id="email">
               </input>
             </label>
           </div>
@@ -139,10 +100,8 @@ const SignUpForm = () => {
               <input className="form-control"
                      ref={passwordRef}
                      type="password"
-                     placeholder="password"
-                     id="password"
-                     onChange={passwordChangeHandler}
-                     value={password}>
+                     placeholder="Password"
+                     id="password">
               </input>
             </label>
           </div>
@@ -152,10 +111,8 @@ const SignUpForm = () => {
               <input className="form-control"
                      ref={confirmPasswordRef}
                      type="password"
-                     placeholder="password"
-                     id="confirmPassword"
-                     onChange={confirmPasswordChangeHandler}
-                     value={confirmPassword}>
+                     placeholder="Password"
+                     id="confirmPassword">
               </input>
             </label>
           </div>
@@ -165,16 +122,19 @@ const SignUpForm = () => {
               <input className="form-check-inline ms-2"
                      ref={adminRef}
                      type="checkbox"
-                     id="admin"
-                     onChange={adminChangeHandler}
-                     value={admin}>
+                     id="admin">
+              </input>
+              <input className="form-control"
+                     ref={adminPasswordRef}
+                     type="password"
+                     placeholder="Admin Password"
+                     id="admin_password">
               </input>
             </label>
           </div>
 
           <center><button className="btn btn-primary" type="button" onClick={signUp}>Sign up!</button></center>
         </div>
-        <div className="col-4"></div>
       </div>
     </>
   );

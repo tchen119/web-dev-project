@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import Logout from '../logout';
 import {profile} from "../../services/user-services";
+import {Link} from "react-router-dom";
 
 const NavigationBar = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -32,7 +33,7 @@ const NavigationBar = () => {
             </li>
             {loggedIn ?
               <li className="nav-item col-1">
-                <a className="nav-link" href="/profile">Profile</a>
+                <div className="nav-link "><Link to="/profile" style={{textDecoration: "none"}} className="text-secondary">Profile</Link></div>
               </li>
               :
               null
@@ -45,11 +46,10 @@ const NavigationBar = () => {
             </li>
             {!loggedIn ?
               <>
-                <li className="nav-item col-2">
-                  <a className="nav-link" href="/signup">Sign Up</a>
-                </li>
-                <li className="nav-item col-2">
-                  <a className="nav-link" href="/login">Log in</a>
+                <li className="nav-item col-4">
+                  <a className="btn btn-primary" href="/signup" role="button">Sign Up</a>
+                  &nbsp;
+                  <a className="btn btn-primary" href="/login" role="button">Log in</a>
                 </li>
               </>
               :

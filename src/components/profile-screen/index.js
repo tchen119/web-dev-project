@@ -15,6 +15,25 @@ const ProfileScreen = () => {
   const [reviews, setReviews] = useState([]);
   const navigate = useNavigate();
 
+  const getUser = async () => {
+    try {
+      const user = await findUserById(id);
+      setProfileUser(user[0]);
+    } catch (e) {
+      alert("User profile is invalid.");
+    }
+  }
+
+  const loadUserReviews = async () => {
+    let userReviews;
+    if (id) {
+      userReviews = await findAllReviewsByUser(id);
+    } else {
+      userReviews = await findAllReviewsByUser(user._id)
+    }
+    setReviews(userReviews);
+  }
+
   useEffect(() => {
     checkLoggedIn();
 
@@ -28,24 +47,6 @@ const ProfileScreen = () => {
       //navigate(`/login`);
     }
   }, []);
-
-  const getUser = async () => {
-    try {
-      const user = await findUserById(id);
-      setProfileUser(user[0]);
-    } catch (e) {
-    }
-  }
-
-  const loadUserReviews = async () => {
-    let userReviews;
-    if (id) {
-      userReviews = await findAllReviewsByUser(id);
-    } else {
-      userReviews = await findAllReviewsByUser(user._id)
-    }
-    setReviews(userReviews);
-  }
 
   return(
     <>
@@ -112,16 +113,6 @@ const ProfileScreen = () => {
                 </input>
               </label>
             </div>
-
-            <div>
-              <label className="col-11 form-label">Admin
-                <input className="form-check-inline ms-2"
-                       type="checkbox"
-                       disabled={true}
-                       value={profileUser.admin || user.admin}>
-                </input>
-              </label>
-            </div>
           </div>}
         </div>
 
@@ -129,15 +120,15 @@ const ProfileScreen = () => {
           <h2>Favorite Restaurants</h2>
           <div className="wd-height-200 overflow-scroll">
           {user.favorites.map((fave) => {
-              return <Favorite fave={fave}/>
-            })}
+            return <Favorite fave={fave}/>
+          })}
           </div>
 
           <h2 className="mt-3">Reviews</h2>
           <div className="wd-height-200 overflow-scroll">
             {reviews.map((review) => {
               return <Review review={review}/>
-            })}
+              })}
           </div>
 
         </div>
