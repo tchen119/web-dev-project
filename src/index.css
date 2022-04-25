@@ -69,6 +69,10 @@ code {
   width: 75%;
 }
 
+.wd-height-200 {
+  height: 200px;
+}
+
 .wd-height-250 {
   height: 250px;
 }

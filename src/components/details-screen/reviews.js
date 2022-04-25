@@ -37,7 +37,8 @@ const Reviews = (businessReviews, bid) => {
   }
 
   const handleReviewText = (e) => {
-    const review = {review: e.target.value, user_id: user._id, business_id: businessReviews.bid, first_name: user.firstName, last_name: user.lastName};
+    const review = {review: e.target.value, user_id: user._id, business_id: businessReviews.bid, business_name: businessReviews.businessName, first_name: user.firstName, last_name: user.lastName};
+    console.log(review);
     setNewReview(review);
   }
 

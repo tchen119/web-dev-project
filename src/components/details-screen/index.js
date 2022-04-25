@@ -21,7 +21,7 @@ const DetailsScreen = () => {
   }
 
   const fetchBusinessReviews = async () => {
-    const results = await findAllReviews(id);
+    const results = await findAllReviews(id, businessDetails.name);
     setReviews(results);
   }
 
