@@ -52,7 +52,6 @@ const ProfileScreen = () => {
   const getAdmin = async () => {
     try {
       const admin = await findAdmin(user._id);
-      console.log(admin[0]);
       setAdmin(admin[0]);
     } catch (e) {}
   }
@@ -163,14 +162,14 @@ const ProfileScreen = () => {
 
           <h2 className="mt-3">Reviews</h2>
           <div className="wd-height-200 overflow-scroll">
-            {reviews.map((review) => {
+            {reviews && reviews.map((review) => {
               return <Review review={review}/>
               })}
-            {reviews.length === 0 ?
+            {reviews && reviews.length === 0 ?
                 <p>Reviewed restaurants will show up here!</p> : ""}
           </div>
 
-          {user.admin &&
+          {user && user.admin &&
           <div>
             <h2 className="mt-3">Edited Reviews</h2>
             <div className="wd-height-200 overflow-scroll">

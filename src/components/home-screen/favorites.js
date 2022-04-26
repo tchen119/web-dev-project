@@ -10,9 +10,9 @@ const Favorites = () => {
       <>
         <h1>My Favorites</h1>
         <ul>
-          {user.favorites.length === 0 ?
+          {user && user.favorites && user.favorites.length === 0 ?
           <p>Liked restaurants will show up here!</p> : ""}
-          {user.favorites.map((fave) => {
+          {user && user.favorites && user.favorites.map((fave) => {
             return <Favorite fave={fave}/>
           })}
         </ul>
