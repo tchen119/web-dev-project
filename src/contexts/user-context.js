@@ -23,6 +23,7 @@ export const UserProvider = ({children}) => {
       const response = await createUser(credentials);
       setUser(response[0]);
       setLoggedIn(true);
+      return response;
     } catch (e) {
       throw e;
     }

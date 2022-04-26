@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import {profile} from "../../services/user-services";
 import {findAllReviews, createReview, deleteReview, updateReview} from '../../services/reviews-services';
+import {addDeletedReview, addUpdatedReview} from '../../services/admin-services';
 import {findUserById} from "../../services/user-services";
 import {useUser} from "../../contexts/user-context";
 
@@ -30,9 +31,19 @@ const Reviews = ({businessReviews, bid, bName}) => {
     setUpdatedReview(review);
   }
 
-  const handleDeleteReview = async (id) => {
-    const response = await deleteReview(id);
+  const handleDeleteReview = async (review) => {
+    await deleteReview(review._id);
     updateAllReviews();
+
+    //add to admin's history
+    if (user.admin) {
+      try {
+        await addDeletedReview(user._id, review);
+      } catch (e) {
+        console.log("error adding to admin history");
+        console.log(e);
+      }
+    }
   }
 
   const handleEditReview = async (review) => {
@@ -41,6 +52,25 @@ const Reviews = ({businessReviews, bid, bName}) => {
     console.log(response);
     updateAllReviews();
     setShowModal(false);
+
+    //add to admin's history
+    if (user.admin) {
+      const editedReview = {
+        user_id: review.user_id,
+        first_name: review.first_name,
+        last_name: review.last_name,
+        business_id: review.business_id,
+        business_name: review.business_name,
+        old_review: review.review,
+        new_review: updatedReview
+      }
+      try {
+        await addUpdatedReview(user._id, editedReview);
+      } catch (e) {
+        console.log("error adding to admin history");
+        console.log(e);
+      }
+    }
   }
 
   const handleEditButton = (review) => {
@@ -104,9 +134,9 @@ const Reviews = ({businessReviews, bid, bName}) => {
                 return(
                   <>
                     <li className="list-group-item">
-                      {loggedIn && (review.user_id === user._id || user.admin) ?
+                      {loggedIn && user && (review.user_id === user._id || user.admin) ?
                         <div className="wd-right">
-                            <i className="fas fa-remove fa-2x fa-pull-right" onClick={() => handleDeleteReview(review._id)}/>
+                            <i className="fas fa-remove fa-2x fa-pull-right" onClick={() => handleDeleteReview(review)}/>
                             <i className="fas fa-edit fa-2x fa-pull-right" onClick={() => handleEditButton(review)}/>
                         </div>
                         : null

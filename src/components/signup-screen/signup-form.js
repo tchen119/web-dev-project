@@ -2,6 +2,7 @@ import React, {useState, useRef, useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {createUser} from "../../services/user-services";
+import {addAdmin} from "../../services/admin-services";
 import {useUser} from "../../contexts/user-context";
 
 const SignUpForm = () => {
@@ -36,7 +37,6 @@ const SignUpForm = () => {
 
     if (emailRef.current.value && passwordRef.current.value && passwordRef.current.value === confirmPasswordRef.current.value && (!adminRef.current.checked || (adminRef.current.checked && adminPasswordRef.current.value === ADMIN_PASSWORD))) {
       try {
-        console.log("signing up");
         const userObject = {
           firstName: firstNameRef.current.value,
           lastName: lastNameRef.current.value,
@@ -45,16 +45,29 @@ const SignUpForm = () => {
           admin: adminRef.current.checked
         }
         const response = await signup(userObject);
-        navigate('/privacy');
+        if (adminRef.current.checked) {
+          try {
+            const adminObject = {
+              firstName: firstNameRef.current.value,
+              lastName: lastNameRef.current.value,
+              user_id: response._id,
+              deletedReviews: [],
+              updatedReviews: []
+            }
+            const adminResponse = await addAdmin(adminObject);
+            navigate('/privacy');
+          } catch (e) {
+            console.log("error adding admin");
+            console.log(e);
+          }
+        } else {
+          navigate('/privacy');
+        }
       } catch (e) {
         alert('email already in use');
       }
     }
   }
-
-  useEffect(() => {
-    checkLoggedIn();
-  }, []);
 
   return(
     <>
