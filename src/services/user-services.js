@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const API_BASE = 'http://localhost:4000';
 const USER_SIGNUP_API = API_BASE + '/api/signup';
+const USER_UPDATE_API = API_BASE + '/api/updateprofile';
 const USER_LOGIN_API = API_BASE + '/api/signin';
 const USER_PROFILE = API_BASE + '/api/profile';
 const USER_LOGOUT = API_BASE + '/api/signout';
@@ -12,6 +13,11 @@ const api = axios.create({withCredentials: true});
 
 export const createUser = async (user) => {
   const response = await api.post(USER_SIGNUP_API, user);
+  return response.data
+}
+
+export const updateUser = async (user) => {
+  const response = await api.put(USER_UPDATE_API, user);
   return response.data
 }
 

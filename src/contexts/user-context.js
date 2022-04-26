@@ -1,6 +1,6 @@
 import React, {useContext, useState, useEffect} from "react";
 import axios from "axios";
-import {findUser, createUser, profile, logout} from "../services/user-services";
+import {findUser, createUser, profile, logout, updateUser} from "../services/user-services";
 
 const UserContext = React.createContext();
 
@@ -45,7 +45,17 @@ export const UserProvider = ({children}) => {
     }
   }
 
-  const value = {login, signup, signout, checkLoggedIn, user, loggedIn};
+  const updateProfile = async (credentials) => {
+    try {
+      const response = await updateUser(credentials);
+      setUser(response[0]);
+      setLoggedIn(true);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  const value = {login, signup, signout, checkLoggedIn, updateProfile, user, loggedIn};
 
   useEffect(() => {
     checkLoggedIn();

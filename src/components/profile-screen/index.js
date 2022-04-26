@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {useUser} from "../../contexts/user-context";
-import {findUserById, profile} from "../../services/user-services";
+import {findUserById, profile, updateUser} from "../../services/user-services";
 import Favorite from "../home-screen/favorite";
 import {findAllReviewsByUser} from "../../services/reviews-services";
 import Reviews from "../details-screen/reviews";
@@ -13,7 +13,30 @@ const ProfileScreen = () => {
   const {id} = useParams();
   const [profileUser, setProfileUser] = useState(user);
   const [reviews, setReviews] = useState([]);
+  const passwordRef = useRef();
+  const confirmPasswordRef = useRef();
   const navigate = useNavigate();
+
+  const updateProfile = async () => {
+    if (!(passwordRef.current.value === confirmPasswordRef.current.value)) {
+      alert("Please make sure new passwords match.");
+    }
+
+    if (passwordRef.current.value === confirmPasswordRef.current.value) {
+      const password = passwordRef.current.value === '' ? user.password : passwordRef.current.value;
+
+      const userObject = {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        password: password,
+      }
+
+      const response = await updateUser(userObject);
+      alert("Profile updated! Please take a moment to review our privacy statement.");
+      navigate('/privacy');
+    }
+  }
 
   const getUser = async () => {
     try {
@@ -36,16 +59,15 @@ const ProfileScreen = () => {
 
   useEffect(() => {
     checkLoggedIn();
+    if (!id && !loggedIn) {
+      navigate(`/login`);
+    }
 
     if (id) {
       getUser();
     }
 
     loadUserReviews();
-
-    if (!id && !loggedIn) {
-      //navigate(`/login`);
-    }
   }, []);
 
   return(
@@ -59,7 +81,7 @@ const ProfileScreen = () => {
             <label className="form-label">First Name:
               <input className="form-control"
                      type="text"
-                     disabled={!loggedIn}
+                     disabled={true}
                      value={profileUser.firstName || user.firstName}>
               </input>
             </label>
@@ -69,7 +91,7 @@ const ProfileScreen = () => {
             <label className="form-label">Last Name:
               <input className="form-control"
                      type="text"
-                     disabled={!loggedIn}
+                     disabled={true}
                      value={profileUser.lastName || user.lastName}>
               </input>
             </label>
@@ -99,6 +121,7 @@ const ProfileScreen = () => {
             <div>
               <label className="form-label">New Password:
                 <input className="form-control"
+                       ref={passwordRef}
                        type="password"
                        >
                 </input>
@@ -106,13 +129,16 @@ const ProfileScreen = () => {
             </div>
 
             <div>
-              <label className="form-label">Confirm Password:
+              <label className="form-label">Confirm New Password:
                 <input className="form-control"
+                       ref={confirmPasswordRef}
                        type="password">
                 </input>
               </label>
             </div>
           </div>
+
+          <button className="btn btn-primary" type="button" onClick={updateProfile}>Update Password</button>
         </div>}
 
         <div className="col-6">
