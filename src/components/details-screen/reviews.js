@@ -12,24 +12,7 @@ const Reviews = ({businessReviews, bid, bName}) => {
   const [updatedReview, setUpdatedReview] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [activeModal, setActiveModal] = useState({});
-
-  // const [currUser, setCurrUser] = useState({});
-  // const [userId, setUserId] = useState("");
-  // const [admin, setAdmin] = useState(false);
-  // const [loggedIn, setLoggedIn] = useState(false);
   const {user, checkLoggedIn, loggedIn} = useUser();
-
-//  const getCurrUser = async () => {
-//    try {
-//      const user = await profile();
-//      setCurrUser(user[0]);
-//      setUserId(user[0]._id);
-//      setAdmin(user[0].admin);
-//      setLoggedIn(true);
-//    } catch (e) {
-//      setLoggedIn(false);
-//    }
-//  }
 
   const handleAddReview = async () => {
     const results = await createReview(newReview);
