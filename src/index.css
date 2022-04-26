@@ -76,3 +76,23 @@ code {
 .wd-height-250 {
   height: 250px;
 }
+
+.wd-background {
+  background-color: lightblue;
+}
+
+.wd-blue {
+  color: lightblue;
+}
+
+html {
+  background-color: lightblue
+}
+
+.wd-font {
+  font-family: Copperplate;
+}
+
+* {
+  font-family: verdana;
+}

@@ -23,7 +23,7 @@ const Explore = () => {
   return (
       <>
         <h1>Explore</h1>
-        <ul className="list-group">
+        <ul className="list-group shadow">
           {
             businesses.map((business) => {
               return (

@@ -13,8 +13,14 @@ const Restaurant = () => {
 
   return(
     <>
-      <NavigationBar/>
-      <Outlet/>
+      <div className="bg-white">
+        <div className="container">
+          <NavigationBar/>
+        </div>
+      </div>
+      <div className="container">
+        <Outlet/>
+      </div>
     </>
   );
 }

@@ -29,7 +29,7 @@ const LoginForm = () => {
 
   return(
     <div className="row">
-      <div className="col-6 container mt-4 pt-2 pb-4 border px-2 bg-light">
+      <div className="col-6 container mt-4 pt-2 pb-4 border px-2 bg-light rounded shadow">
         <center><h1>Login</h1></center>
 
         <div className="row ms-3">
@@ -54,7 +54,7 @@ const LoginForm = () => {
           </label>
         </div>
 
-        <center><button className="btn btn-primary" type="button" onClick={handleLogin}>Log in!</button></center>
+        <center><button className="btn wd-background" type="button" onClick={handleLogin}>Log in!</button></center>
       </div>
     </div>
   );
