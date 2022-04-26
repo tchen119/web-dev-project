@@ -28,7 +28,7 @@ const SearchScreen = () => {
   return(
     <>
       <center>
-        <div className="wd-form-border bg-light">
+        <div className="wd-form-border bg-white shadow">
           <div className="form-group wd-padding">
             <label for="search">Search</label>
             <input type="text" className="form-control" id="search" ref={termRef} placeholder="Search for businesses"/>
@@ -37,11 +37,11 @@ const SearchScreen = () => {
             <label for="search">Location</label>
             <input type="text" className="form-control" id="location" ref={locationRef} placeholder="Location"/>
           </div>
-          <button type="submit" className="btn btn-primary" onClick={searchBusinessesByTermAndLocation}>Submit</button>
+          <button type="submit" className="btn wd-background" onClick={searchBusinessesByTermAndLocation}>Submit</button>
         </div>
       </center>
 
-      <ul className="list-group">
+      <ul className="list-group shadow rounded">
         {
           businesses.map((business) => {
             return(

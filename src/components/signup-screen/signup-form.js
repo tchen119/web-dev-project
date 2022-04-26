@@ -59,7 +59,7 @@ const SignUpForm = () => {
   return(
     <>
       <div className="row">
-        <div className="col-6 container mt-4 pt-2 pb-4 border px-2 bg-light">
+        <div className="col-6 container mt-4 pt-2 pb-4 border px-2 bg-light shadow rounded">
           <center><h1>Signup</h1></center>
 
           <div className="row ms-3">
@@ -133,7 +133,7 @@ const SignUpForm = () => {
             </label>
           </div>
 
-          <center><button className="btn btn-primary" type="button" onClick={signUp}>Sign up!</button></center>
+          <center><button className="btn wd-background" type="button" onClick={signUp}>Sign up!</button></center>
         </div>
       </div>
     </>

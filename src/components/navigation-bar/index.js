@@ -21,8 +21,8 @@ const NavigationBar = () => {
 
   return(
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <a className="navbar-brand">Restaurants</a>
+      <nav className="navbar navbar-expand-lg navbar-light bg-white">
+        <a className="navbar-brand">RestaurantAdvisor</a>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -41,15 +41,15 @@ const NavigationBar = () => {
             <li className="nav-item col-1">
               <a className="nav-link" href="/search">Search</a>
             </li>
-            <li className="nav-item col-6">
+            <li className="nav-item col-5">
               <a className="nav-link" href="/privacy">Privacy Policy</a>
             </li>
             {!loggedIn ?
               <>
                 <li className="nav-item col-4">
-                  <a className="btn btn-primary" href="/signup" role="button">Sign Up</a>
+                  <a className="btn wd-background" href="/signup" role="button">Sign Up</a>
                   &nbsp;
-                  <a className="btn btn-primary" href="/login" role="button">Log in</a>
+                  <a className="btn wd-background" href="/login" role="button">Log in</a>
                 </li>
               </>
               :

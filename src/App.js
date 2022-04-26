@@ -13,7 +13,7 @@ function App() {
   return (
     <UserProvider>
       <BrowserRouter>
-        <div className="container">
+        <div className="wd-background">
           <Routes>
             <Route path="signup" element={<SignUpScreen/>}/>
             <Route path="login" element={<LoginScreen/>}/>

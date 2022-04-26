@@ -12,24 +12,7 @@ const Reviews = ({businessReviews, bid, bName}) => {
   const [updatedReview, setUpdatedReview] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [activeModal, setActiveModal] = useState({});
-
-  // const [currUser, setCurrUser] = useState({});
-  // const [userId, setUserId] = useState("");
-  // const [admin, setAdmin] = useState(false);
-  // const [loggedIn, setLoggedIn] = useState(false);
   const {user, checkLoggedIn, loggedIn} = useUser();
-
-//  const getCurrUser = async () => {
-//    try {
-//      const user = await profile();
-//      setCurrUser(user[0]);
-//      setUserId(user[0]._id);
-//      setAdmin(user[0].admin);
-//      setLoggedIn(true);
-//    } catch (e) {
-//      setLoggedIn(false);
-//    }
-//  }
 
   const handleAddReview = async () => {
     const results = await createReview(newReview);
@@ -97,8 +80,8 @@ const Reviews = ({businessReviews, bid, bName}) => {
 
   return(
     <div className="wd-padding">
-      <div class="card">
-        <div class="card-header">
+      <div class="card shadow">
+        <div class="card-header wd-font">
           Reviews
         </div>
         <div class="card-body">
@@ -108,7 +91,7 @@ const Reviews = ({businessReviews, bid, bName}) => {
                 <textarea class="form-control" id="reviews" rows="3" onChange={handleReviewText}></textarea>
               </div>
               <div className="row wd-padding">
-                <button className="btn btn-primary float-end" onClick={() => handleAddReview()}>
+                <button className="btn wd-background float-end" onClick={() => handleAddReview()}>
                    Add
                 </button>
               </div>
@@ -129,9 +112,9 @@ const Reviews = ({businessReviews, bid, bName}) => {
                         : null
                       }
                       {loggedIn ?
-                        <Link to={`/profile/${review.user_id}`} style={{textDecoration: 'none'}}><p className="wd-bold wd-left">{review.first_name + " " + review.last_name}</p></Link>
+                        <Link to={`/profile/${review.user_id}`} style={{textDecoration: 'none'}}><p className="wd-bold wd-left wd-blue">{review.first_name + " " + review.last_name}</p></Link>
                         :
-                        <p className="wd-bold wd-left">{review.first_name + " " + review.last_name}</p>
+                        <p className="wd-bold wd-left text-secondary">{review.first_name + " " + review.last_name}</p>
                       }
                       <p className="wd-left">{review.review}</p>
                     </li>

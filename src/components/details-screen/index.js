@@ -39,18 +39,18 @@ const DetailsScreen = () => {
 
   return(
     <>
-      <h1 className="wd-center">{businessDetails.name}</h1>
+      <h1 className="wd-center wd-font">{businessDetails.name}</h1>
 
       <div className="container wd-width-75">
         <div className="row">
           <div className="col-sm wd-height-250">
-            <img className="wd-fill-image" src={businessDetails.photos ? businessDetails.photos[0] : ""}/>
+            <img className="wd-fill-image rounded shadow-lg" src={businessDetails.photos ? businessDetails.photos[0] : ""}/>
           </div>
           <div className="col-sm wd-height-250">
-            <img className="wd-fill-image" src={businessDetails.photos ? businessDetails.photos[1] : ""}/>
+            <img className="wd-fill-image rounded shadow-lg" src={businessDetails.photos ? businessDetails.photos[1] : ""}/>
           </div>
           <div className="col-sm wd-height-250">
-            <img className="wd-fill-image" src={businessDetails.photos ? businessDetails.photos[2] : ""}/>
+            <img className="wd-fill-image rounded shadow-lg" src={businessDetails.photos ? businessDetails.photos[2] : ""}/>
           </div>
         </div>
       </div>
@@ -58,8 +58,8 @@ const DetailsScreen = () => {
       <div className="container">
         <div className="row">
           <div className="col wd-padding">
-            <div class="card">
-              <div class="card-header wd-center">
+            <div className="card shadow">
+              <div class="card-header wd-center wd-font">
                 Details
               </div>
               <div class="card-body">

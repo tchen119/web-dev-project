@@ -11,8 +11,8 @@ const LoginScreen = () => {
 
   return(
       <Provider store={store}>
-        <button className="btn btn-primary">
-          <Link to="/" style={{color: '#FFF', textDecoration: "none"}}>
+        <button className="btn btn-light">
+          <Link to="/" style={{color: "black", textDecoration: "none"}}>
             Back
           </Link>
         </button>

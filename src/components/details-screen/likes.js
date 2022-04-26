@@ -77,21 +77,21 @@ const Likes = ({businessLikes, bid, bName}) => {
   return(
     <>
       {!loggedIn || currStatus === "like" ?
-        <button className="btn btn-primary" disabled onClick={unlikeBusiness}>
+        <button className="btn btn-light shadow" disabled onClick={unlikeBusiness}>
           Likes &nbsp; {likes}
         </button>
         :
-        <button className="btn btn-primary" onClick={likeBusiness}>
+        <button className="btn btn-light shadow" onClick={likeBusiness}>
           Likes &nbsp; {likes}
         </button>
       }
       &nbsp;
       {!loggedIn || currStatus === "dislike" ?
-        <button className="btn btn-primary" disabled>
+        <button className="btn btn-light shadow" disabled>
           Dislikes &nbsp; {dislikes}
         </button>
         :
-        <button className="btn btn-primary" onClick={dislikeBusiness}>
+        <button className="btn btn-light shadow" onClick={dislikeBusiness}>
           Dislikes &nbsp; {dislikes}
         </button>
       }

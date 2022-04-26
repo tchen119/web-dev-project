@@ -19,7 +19,7 @@ const Logout = () => {
 
   return(
     <>
-      <button className="btn btn-primary" onClick={handleLogout}>
+      <button className="btn wd-background" onClick={handleLogout}>
         Logout
       </button>
     </>
