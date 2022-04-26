@@ -13,13 +13,16 @@ const HomeScreen = () => {
 
   return(
     <div className="row">
-      <div className="col-8">
+      {!loggedIn &&
+      <div className="col-4">
         <Explore/>
+      </div> }
+      <div className="col-8">
+        <RecentActivity/>
       </div>
       {loggedIn &&
       <div className="col-4">
         <Favorites/>
-        <RecentActivity/>
       </div> }
     </div>
   );
