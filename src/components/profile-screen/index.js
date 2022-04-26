@@ -72,9 +72,11 @@ const ProfileScreen = () => {
     if (id) {
       getUser();
     } else {
+      if (!user.email) {
+        navigate('/login');
+      }
       getAdmin();
     }
-
 
     loadUserReviews();
   }, []);
