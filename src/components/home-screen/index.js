@@ -12,19 +12,21 @@ const HomeScreen = () => {
   }, []);
 
   return(
-    <div className="row">
-      {!loggedIn &&
-      <div className="col-4">
-        <Explore/>
-      </div> }
-      <div className="col-8">
-        <RecentActivity/>
-      </div>
-      {loggedIn &&
-      <div className="col-4">
-        <Favorites/>
-      </div> }
-    </div>
+      <>
+        <div className="row">
+        {!loggedIn &&
+        <div className="col-md-4">
+          <Explore/>
+        </div> }
+        <div className="col-md-8">
+          <RecentActivity/>
+        </div>
+        {loggedIn &&
+        <div className="col-md-4">
+          <Favorites/>
+        </div> }
+        </div>
+      </>
   );
 }
 
