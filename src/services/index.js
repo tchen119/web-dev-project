@@ -1,1 +1,1 @@
-export const API_BASE = 'https://web-dev-restaurant.herokuapp.com'; // 'http://localhost:4000'
+export const API_BASE = 'http://localhost:4000' //'https://web-dev-restaurant.herokuapp.com';
