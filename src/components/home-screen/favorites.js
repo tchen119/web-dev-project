@@ -5,10 +5,9 @@ import Favorite from "./favorite";
 const Favorites = () => {
   const {user} = useUser();
 
-
   return(
       <div className="card my-4">
-        <h1 className="card-header">My Favorites</h1>
+        <div className="card-header">My Favorites</div>
         <ul className="m-0 p-0">
           {user && user.favorites && user.favorites.length === 0 ?
           <p>Liked restaurants will show up here!</p> : ""}
