@@ -93,9 +93,9 @@ const ProfileScreen = () => {
       <h1 className="display-4 wd-center wd-padding mb-5">{(id ? profileUser.firstName + " " + profileUser.lastName + "'s " : "") + "Profile"}</h1>
       <div className="row">
         {loggedIn && !id &&
-        <div className="col-6">
-          <h2>User Information</h2>
-          <div>
+        <div className="col-md-6 card p-0 pb-2 mb-4">
+          <h2 className="card-header">User Information</h2>
+          <div className="ms-2">
             <label className="form-label">First Name:
               <input className="form-control"
                      type="text"
@@ -105,7 +105,7 @@ const ProfileScreen = () => {
             </label>
           </div>
 
-          <div>
+          <div className="ms-2">
             <label className="form-label">Last Name:
               <input className="form-control"
                      type="text"
@@ -115,7 +115,7 @@ const ProfileScreen = () => {
             </label>
           </div>
 
-          <div>
+          <div className="ms-2">
             <div>
               <label className="form-label">Email:
                 <input className="form-control"
@@ -156,46 +156,54 @@ const ProfileScreen = () => {
             </div>
           </div>
 
-          <button className="btn btn-primary" type="button" onClick={updateProfile}>Update Password</button>
+          <button className="btn btn-primary ms-2 mt-2 wd-width-47" type="button" onClick={updateProfile}>Update Password</button>
         </div>}
 
-        <div className="col-6">
-          <h2>Favorite Restaurants</h2>
-          <div className="wd-height-200 overflow-scroll">
-          {profileUser.favorites && profileUser.favorites?.map((fave) => {
-            return <Favorite fave={fave}/>
-          })}
-          {profileUser.favorites && profileUser.favorites.length === 0 ?
-                <p>Liked restaurants will show up here!</p> : ""}
+        <div className="col-md-6">
+          <div className="card mb-3">
+            <h2 className="card-header">Favorite Restaurants</h2>
+            <div className="wd-height-200 overflow-scroll">
+            {profileUser.favorites && profileUser.favorites?.map((fave) => {
+              return <Favorite fave={fave}/>
+            })}
+            {profileUser.favorites && profileUser.favorites.length === 0 ?
+                  <p>Liked restaurants will show up here!</p> : ""}
+            </div>
           </div>
 
-          <h2 className="mt-3">Reviews</h2>
-          <div className="wd-height-200 overflow-scroll">
-            {reviews && reviews.map((review) => {
-              return <Review review={review}/>
-              })}
-            {reviews && reviews.length === 0 ?
-                <p>Reviewed restaurants will show up here!</p> : ""}
+          <div className="mb-3 card">
+            <h2 className="card-header">Reviews</h2>
+            <div className="wd-height-200 overflow-scroll">
+              {reviews && reviews.map((review) => {
+                return <Review review={review}/>
+                })}
+              {reviews && reviews.length === 0 ?
+                  <p>Reviewed restaurants will show up here!</p> : ""}
+            </div>
           </div>
 
           {user && user.admin &&
           <div>
-            <h2 className="mt-3">Edited Reviews</h2>
-            <div className="wd-height-200 overflow-scroll">
-              {admin.updatedReviews && admin.updatedReviews.map((review) => {
-                return <NewReview review={review}/>
-              })}
-              { admin.updatedReviews && admin.updatedReviews.length === 0 ?
-                  <p>Review you edit will show up here!</p> : ""}
+            <div className="mb-3 card">
+              <h2 className="card-header">Edited Reviews</h2>
+              <div className="wd-height-200 overflow-scroll">
+                {admin.updatedReviews && admin.updatedReviews.map((review) => {
+                  return <NewReview review={review}/>
+                })}
+                { admin.updatedReviews && admin.updatedReviews.length === 0 ?
+                    <p>Review you edit will show up here!</p> : ""}
+              </div>
             </div>
 
-            <h2 className="mt-3">Deleted Reviews</h2>
-            <div className="wd-height-200 overflow-scroll">
-              {admin.deletedReviews && admin.deletedReviews.map((review) => {
-                return <DeletedReview review={review}/>
-              })}
-              {admin.deletedReviews && admin.deletedReviews.length === 0 ?
-                  <p>Review you delete will show up here!</p> : ""}
+            <div className="mb-3 card">
+              <h2 className="card-header">Deleted Reviews</h2>
+              <div className="wd-height-200 overflow-scroll">
+                {admin.deletedReviews && admin.deletedReviews.map((review) => {
+                  return <DeletedReview review={review}/>
+                })}
+                {admin.deletedReviews && admin.deletedReviews.length === 0 ?
+                    <p>Review you delete will show up here!</p> : ""}
+              </div>
             </div>
           </div>
           }
