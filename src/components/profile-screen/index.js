@@ -81,7 +81,7 @@ const ProfileScreen = () => {
     if (id) {
       getUser();
     } else {
-      shouldNavigate();
+      //shouldNavigate();
       getAdmin();
     }
 
