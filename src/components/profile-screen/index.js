@@ -90,7 +90,7 @@ const ProfileScreen = () => {
 
   return(
     <>
-      <h1 className="mb-5">{(id ? profileUser.firstName + " " + profileUser.lastName + "'s " : "") + "Profile"}</h1>
+      <h1 className="display-4 wd-center wd-padding mb-5">{(id ? profileUser.firstName + " " + profileUser.lastName + "'s " : "") + "Profile"}</h1>
       <div className="row">
         {loggedIn && !id &&
         <div className="col-6">

@@ -44,38 +44,41 @@ const RecentActivity = () => {
 
   return(
       <>
-        <h1>Recent Activity</h1>
         <div className="row">
-          <div className="col-6">
-            <h2>Likes</h2>
-            <ul>
-              {allLikes.map((like) => {
-                const profileID = like.user_id;
-                const businessID = like.business_id;
-                return <li className="list-group-item">
-                  <Link className="wd-bold wd-left text-decoration-none" to={"/profile/" + profileID}>{like.first_name + " "
-                  + like.last_name}</Link>
-                  <span className="wd-bold wd-left"> likes </span>
-                  <Link className="wd-bold wd-left text-decoration-none" to={"/search/details/" + businessID}>{like.business_name}</Link>
-                </li>
-              })}
-            </ul>
+          <div className="col-md-6">
+            <div className="card my-4">
+              <h1 className="card-header">Recent Likes</h1>
+              <ul className="m-0 p-0">
+                {allLikes.map((like) => {
+                  const profileID = like.user_id;
+                  const businessID = like.business_id;
+                  return <li className="list-group-item">
+                    <Link className="wd-bold wd-left text-decoration-none" to={"/profile/" + profileID}>{like.first_name + " "
+                    + like.last_name}</Link>
+                    <span className="wd-bold wd-left"> likes </span>
+                    <Link className="wd-bold wd-left text-decoration-none" to={"/search/details/" + businessID}>{like.business_name}</Link>
+                  </li>
+                })}
+              </ul>
+            </div>
           </div>
-          <div className="col-6">
-            <h2>Reviews</h2>
-            <ul>
-              {allReviews.map((review) => {
-                const profileID = review.user_id;
-                const businessID = review.business_id;
-                return <li className="list-group-item">
-                  <Link className="wd-bold wd-left text-decoration-none" to={"/profile/" + profileID}>{review.first_name + " "
-                  + review.last_name}</Link>
-                  <span className="wd-bold wd-left"> says about </span>
-                  <Link className="wd-bold wd-left text-decoration-none" to={"/search/details/" + businessID}>{review.business_name}</Link>
-                  <p className="wd-left">{review.review}</p>
-                </li>
-              })}
-            </ul>
+          <div className="col-md-6">
+            <div className="card my-4">
+              <h1 className="card-header">Recent Reviews</h1>
+              <ul className="m-0 p-0">
+                {allReviews.map((review) => {
+                  const profileID = review.user_id;
+                  const businessID = review.business_id;
+                  return <li className="list-group-item">
+                    <Link className="wd-bold wd-left text-decoration-none" to={"/profile/" + profileID}>{review.first_name + " "
+                    + review.last_name}</Link>
+                    <span className="wd-bold wd-left"> says about </span>
+                    <Link className="wd-bold wd-left text-decoration-none" to={"/search/details/" + businessID}>{review.business_name}</Link>
+                    <p className="wd-left">{review.review}</p>
+                  </li>
+                })}
+              </ul>
+            </div>
           </div>
         </div>
       </>

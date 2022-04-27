@@ -21,9 +21,9 @@ const Explore = () => {
   })
 
   return (
-      <>
-        <h1>Explore</h1>
-        <ul className="list-group shadow">
+      <div className="card my-4">
+        <h1 className="card-header">Explore</h1>
+        <ul className="list-group shadow m-0 p-0">
           {
             businesses.map((business) => {
               return (
@@ -51,7 +51,7 @@ const Explore = () => {
             })
           }
         </ul>
-      </>
+      </div>
   );
 }
 
