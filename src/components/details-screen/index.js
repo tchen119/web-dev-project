@@ -43,13 +43,13 @@ const DetailsScreen = () => {
 
       <div className="container wd-width-75">
         <div className="row">
-          <div className="col-sm wd-height-250">
+          <div className="col-sm-12 col-md-4 wd-height-250">
             <img className="wd-fill-image rounded shadow-lg" src={businessDetails.photos ? businessDetails.photos[0] : ""}/>
           </div>
-          <div className="col-sm wd-height-250">
+          <div className="col-sm-12 col-md-4 wd-height-250">
             <img className="wd-fill-image rounded shadow-lg" src={businessDetails.photos ? businessDetails.photos[1] : ""}/>
           </div>
-          <div className="col-sm wd-height-250">
+          <div className="col-sm-12 col-md-4 wd-height-250">
             <img className="wd-fill-image rounded shadow-lg" src={businessDetails.photos ? businessDetails.photos[2] : ""}/>
           </div>
         </div>
@@ -57,7 +57,7 @@ const DetailsScreen = () => {
 
       <div className="container">
         <div className="row">
-          <div className="col wd-padding">
+          <div className="wd-padding col-sm-12 col-md-6">
             <div className="card shadow">
               <div class="card-header wd-center wd-font">
                 Details
@@ -85,7 +85,7 @@ const DetailsScreen = () => {
               <Likes businessLikes={likes} bid={id} bName={businessDetails.name}/>
             </div>
           </div>
-          <div className="col">
+          <div className="col-sm-12 col-md-6">
             <div className="wd-center">
               <Reviews businessReviews={reviews} bid={businessDetails.id} bName={businessDetails.name}/>
             </div>
