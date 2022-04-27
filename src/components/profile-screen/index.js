@@ -93,116 +93,132 @@ const ProfileScreen = () => {
       <h1 className="display-4 wd-center wd-padding mb-5">{(id ? profileUser.firstName + " " + profileUser.lastName + "'s " : "") + "Profile"}</h1>
       <div className="row">
         {loggedIn && !id &&
-        <div className="col-md-6 card p-0 pb-2 mb-4">
-          <h2 className="card-header">User Information</h2>
-          <div className="ms-2">
-            <label className="form-label">First Name:
-              <input className="form-control"
-                     type="text"
-                     disabled={true}
-                     value={profileUser.firstName || user.firstName}>
-              </input>
-            </label>
-          </div>
-
-          <div className="ms-2">
-            <label className="form-label">Last Name:
-              <input className="form-control"
-                     type="text"
-                     disabled={true}
-                     value={profileUser.lastName || user.lastName}>
-              </input>
-            </label>
-          </div>
-
-          <div className="ms-2">
-            <div>
-              <label className="form-label">Email:
+        <div className="col-md-6">
+          <div className="card pb-2 mb-3">
+            <h2 className="card-header">User Information</h2>
+            <div className="ms-2">
+              <label className="form-label">First Name:
                 <input className="form-control"
                        type="text"
                        disabled={true}
-                       value={profileUser.email || user.email}>
+                       value={profileUser.firstName || user.firstName}>
                 </input>
               </label>
             </div>
 
-            <div>
-              <label className="form-label">Password:
+            <div className="ms-2">
+              <label className="form-label">Last Name:
                 <input className="form-control"
-                       type="password"
+                       type="text"
                        disabled={true}
-                       value={profileUser.password || user.password}>
+                       value={profileUser.lastName || user.lastName}>
                 </input>
               </label>
             </div>
 
-            <div>
-              <label className="form-label">New Password:
-                <input className="form-control"
-                       ref={passwordRef}
-                       type="password"
-                       >
-                </input>
-              </label>
+            <div className="ms-2">
+              <div>
+                <label className="form-label">Email:
+                  <input className="form-control"
+                         type="text"
+                         disabled={true}
+                         value={profileUser.email || user.email}>
+                  </input>
+                </label>
+              </div>
+
+              <div>
+                <label className="form-label">Password:
+                  <input className="form-control"
+                         type="password"
+                         disabled={true}
+                         value={profileUser.password || user.password}>
+                  </input>
+                </label>
+              </div>
+
+              <div>
+                <label className="form-label">New Password:
+                  <input className="form-control"
+                         ref={passwordRef}
+                         type="password"
+                         >
+                  </input>
+                </label>
+              </div>
+
+              <div>
+                <label className="form-label">Confirm New Password:
+                  <input className="form-control"
+                         ref={confirmPasswordRef}
+                         type="password">
+                  </input>
+                </label>
+              </div>
             </div>
 
-            <div>
-              <label className="form-label">Confirm New Password:
-                <input className="form-control"
-                       ref={confirmPasswordRef}
-                       type="password">
-                </input>
-              </label>
-            </div>
+            <button className="btn btn-primary ms-2 mt-2 wd-width-47" type="button" onClick={updateProfile}>Update Password</button>
           </div>
-
-          <button className="btn btn-primary ms-2 mt-2 wd-width-47" type="button" onClick={updateProfile}>Update Password</button>
-        </div>}
-
-        <div className="col-md-6">
+          {user && user.admin &&
           <div className="card mb-3">
             <h2 className="card-header">Favorite Restaurants</h2>
             <div className="wd-height-200 overflow-scroll">
-            {profileUser.favorites && profileUser.favorites?.map((fave) => {
-              return <Favorite fave={fave}/>
-            })}
-            {profileUser.favorites && profileUser.favorites.length === 0 ?
+              {profileUser.favorites && profileUser.favorites?.map((fave) => {
+                return <Favorite fave={fave}/>
+              })}
+              {profileUser.favorites && profileUser.favorites.length === 0 ?
                   <p>Liked restaurants will show up here!</p> : ""}
             </div>
-          </div>
+          </div> }
+        </div>}
 
-          <div className="mb-3 card">
-            <h2 className="card-header">Reviews</h2>
-            <div className="wd-height-200 overflow-scroll">
-              {reviews && reviews.map((review) => {
-                return <Review review={review}/>
-                })}
-              {reviews && reviews.length === 0 ?
-                  <p>Reviewed restaurants will show up here!</p> : ""}
+        <div className={id ? "" : "col-md-6"}>
+          <div className="row">
+          {user && !user.admin &&
+            <div className={(id ? "ms-0 me-5 wd-width-47 " : "") + "p-0 card mb-3"}>
+              <h2 className="card-header">Favorite Restaurants</h2>
+              <div className={(id ? "wd-height-400 " : "wd-height-200 ") + "overflow-scroll"}>
+              {profileUser.favorites && profileUser.favorites?.map((fave) => {
+                return <Favorite fave={fave}/>
+              })}
+              {profileUser.favorites && profileUser.favorites.length === 0 ?
+                    <p className="wd-center">Liked restaurants will show up here!</p> : ""}
+              </div>
+            </div> }
+
+            <div className={(id ? "wd-width-47 " : "") + "p-0 card mb-3"}>
+              <h2 className="card-header">Reviews</h2>
+              <div className={(id ? "wd-height-400 " : "wd-height-200 ") + "overflow-scroll"}>
+                {reviews && reviews.map((review) => {
+                  return <Review review={review}/>
+                  })}
+                {reviews && reviews.length === 0 ?
+                    <p className="wd-center">Reviewed restaurants will show up here!</p> : ""}
+              </div>
             </div>
           </div>
 
           {user && user.admin &&
-          <div>
-            <div className="mb-3 card">
+          <div className="row">
+            <div className="mb-3 card p-0">
               <h2 className="card-header">Edited Reviews</h2>
               <div className="wd-height-200 overflow-scroll">
                 {admin.updatedReviews && admin.updatedReviews.map((review) => {
                   return <NewReview review={review}/>
                 })}
                 { admin.updatedReviews && admin.updatedReviews.length === 0 ?
-                    <p>Review you edit will show up here!</p> : ""}
+                    <p className="wd-center">Reviews you edit will show up here!</p> : ""}
               </div>
             </div>
 
-            <div className="mb-3 card">
+            <div className="mb-3 card p-0">
               <h2 className="card-header">Deleted Reviews</h2>
               <div className="wd-height-200 overflow-scroll">
                 {admin.deletedReviews && admin.deletedReviews.map((review) => {
                   return <DeletedReview review={review}/>
                 })}
                 {admin.deletedReviews && admin.deletedReviews.length === 0 ?
-                    <p>Review you delete will show up here!</p> : ""}
+                    <p className="wd-center">Reviews you delete will show up here!</p> : ""}
               </div>
             </div>
           </div>

@@ -23,7 +23,7 @@ const Explore = () => {
   return (
       <div className="card my-4">
         <h1 className="card-header">Explore</h1>
-        <ul className="list-group shadow m-0 p-0">
+        <ul className="list-group shadow m-0 p-0 wd-height-500 overflow-scroll">
           {
             businesses.map((business) => {
               return (

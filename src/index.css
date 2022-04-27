@@ -81,6 +81,14 @@ code {
   height: 250px;
 }
 
+.wd-height-400 {
+  height: 400px;
+}
+
+.wd-height-500 {
+  height: 500px;
+}
+
 .wd-background {
   background-color: lightblue;
 }

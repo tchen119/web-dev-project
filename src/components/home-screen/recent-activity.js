@@ -48,7 +48,7 @@ const RecentActivity = () => {
           <div className="col-md-6">
             <div className="card my-4">
               <h1 className="card-header">Recent Likes</h1>
-              <ul className="m-0 p-0">
+              <ul className="m-0 p-0 wd-height-500 overflow-scroll">
                 {allLikes.map((like) => {
                   const profileID = like.user_id;
                   const businessID = like.business_id;
@@ -65,7 +65,7 @@ const RecentActivity = () => {
           <div className="col-md-6">
             <div className="card my-4">
               <h1 className="card-header">Recent Reviews</h1>
-              <ul className="m-0 p-0">
+              <ul className="m-0 p-0 wd-height-500 overflow-scroll">
                 {allReviews.map((review) => {
                   const profileID = review.user_id;
                   const businessID = review.business_id;
