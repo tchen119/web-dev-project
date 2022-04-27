@@ -29,7 +29,7 @@ const NavigationBar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav w-100 row">
             <li className="nav-item active col-1">
-              <a className="nav-link" href="/">Home</a>
+              <div className="nav-link "><Link to="/" style={{textDecoration: "none"}} className="text-secondary">Home</Link></div>
             </li>
             {loggedIn ?
               <li className="nav-item col-1">
@@ -39,17 +39,17 @@ const NavigationBar = () => {
               null
             }
             <li className="nav-item col-1">
-              <a className="nav-link" href="/search">Search</a>
+              <div className="nav-link "><Link to="/search" style={{textDecoration: "none"}} className="text-secondary">Search</Link></div>
             </li>
             <li className="nav-item col-5">
-              <a className="nav-link" href="/privacy">Privacy Policy</a>
+              <div className="nav-link "><Link to="/privacy" style={{textDecoration: "none"}} className="text-secondary">Privacy Policy</Link></div>
             </li>
             {!loggedIn ?
               <>
                 <li className="nav-item col-4">
-                  <a className="btn wd-background" href="/signup" role="button">Sign Up</a>
+                  <a className="btn wd-background" role="button"><Link to="/signup" style={{textDecoration: "none"}} className="text-dark">Sign Up</Link></a>
                   &nbsp;
-                  <a className="btn wd-background" href="/login" role="button">Log in</a>
+                  <a className="btn wd-background" role="button"><Link to="/login" style={{textDecoration: "none"}} className="text-dark">Log In</Link></a>
                 </li>
               </>
               :
