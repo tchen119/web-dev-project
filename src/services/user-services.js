@@ -1,6 +1,6 @@
 import axios from 'axios';
+import {API_BASE} from './';
 
-const API_BASE = 'http://localhost:4000';
 const USER_SIGNUP_API = API_BASE + '/api/signup';
 const USER_UPDATE_API = API_BASE + '/api/updateprofile';
 const USER_LOGIN_API = API_BASE + '/api/signin';

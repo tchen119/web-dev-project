@@ -17,8 +17,6 @@ const RecentActivityReview = ({ first_name, last_name, review, business_id }) =>
   return(
       <li className="list-group-item">
         <p className="wd-bold wd-left">{first_name + " " + last_name + " says about " }</p>
-
-
       </li>
   );
 }

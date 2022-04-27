@@ -1,6 +1,7 @@
 import axios from 'axios';
+import {API_BASE} from './';
 
-const LIKES_API = 'http://localhost:4000/api/businesses/likes';
+const LIKES_API = `${API_BASE}/api/businesses/likes`;
 
 export const addLike = async (like) => {
   const response = await axios.post(LIKES_API, like);
