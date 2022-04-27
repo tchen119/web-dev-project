@@ -42,7 +42,7 @@ export const UserProvider = ({children}) => {
       setLoggedIn(true);
       return response;
     } catch (e) {
-      throw e;
+      //throw e;
     }
   }
 

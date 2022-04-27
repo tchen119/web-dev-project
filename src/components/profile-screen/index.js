@@ -60,26 +60,33 @@ const ProfileScreen = () => {
     let userReviews;
     if (id) {
       userReviews = await findAllReviewsByUser(id);
-    } else {
+    } else if (user._id) {
       userReviews = await findAllReviewsByUser(user._id)
+    } else {
+      userReviews = await findAllReviewsByUser(profileUser._id)
     }
     setReviews(userReviews.reverse());
   }
 
-  useEffect(() => {
-    checkLoggedIn();
+  const shouldNavigate = async () => {
+    const isLoggedIn = await checkLoggedIn();
+    if (!isLoggedIn) {
+      navigate('/login');
+    } else {
+      setProfileUser(isLoggedIn[0]);
+    }
+  }
 
+  useEffect(() => {
     if (id) {
       getUser();
     } else {
-      if (!user.email) {
-        navigate('/login');
-      }
+      shouldNavigate();
       getAdmin();
     }
 
     loadUserReviews();
-  }, []);
+  }, [profileUser]);
 
   return(
     <>
