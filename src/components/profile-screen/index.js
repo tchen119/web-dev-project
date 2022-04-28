@@ -157,7 +157,7 @@ const ProfileScreen = () => {
               </div>
             </div>
 
-            <button className="btn btn-primary ms-2 mt-2 wd-width-47 wd-background" type="button" onClick={updateProfile}>Update Password</button>
+            <button className="btn btn-primary ms-2 mt-2 wd-width-47 wd-background wd-no-border" type="button" onClick={updateProfile}>Update Password</button>
           </div>
           {user && user.admin &&
           <div className="card mb-3">
