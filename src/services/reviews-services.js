@@ -27,7 +27,7 @@ export const findAllReviewsByIdAndName = async (business_id, business_name) => {
 }
 
 export const findAllReviewsByUser = async (user_id) => {
-  const API = 'http://localhost:4000/api/reviews';
+  const API = `${API_BASE}/api/reviews`;
   const response = await axios.get(`${API}/${user_id}`);
   const reviews = response.data;
   return reviews;
