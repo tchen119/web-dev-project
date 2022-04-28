@@ -72,6 +72,8 @@ const ProfileScreen = () => {
     const isLoggedIn = await checkLoggedIn();
     if (!isLoggedIn) {
       navigate('/login');
+    } else if (id && user._id === id) {
+      navigate('profile');
     } else {
       setProfileUser(isLoggedIn[0]);
     }
