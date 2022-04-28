@@ -47,7 +47,7 @@ const NavigationBar = () => {
             {!loggedIn ?
               <>
                 <li className="nav-item col-4">
-                  <a className="btn wd-background mb-1" role="button"><Link to="/signup" style={{textDecoration: "none"}} className="text-dark">Sign Up</Link></a>
+                  <a className="btn wd-background" role="button"><Link to="/signup" style={{textDecoration: "none"}} className="text-dark">Sign Up</Link></a>
                   &nbsp;
                   <a className="btn wd-background" role="button"><Link to="/login" style={{textDecoration: "none"}} className="text-dark">Log In</Link></a>
                 </li>
