@@ -42,6 +42,9 @@ const ProfileScreen = () => {
 
   const getUser = async () => {
     try {
+      if (user._id === id) {
+        navigate('/profile');
+      }
       const user = await findUserById(id);
       setProfileUser(user[0]);
     } catch (e) {
@@ -81,7 +84,7 @@ const ProfileScreen = () => {
     if (id) {
       getUser();
     } else {
-      //shouldNavigate();
+      shouldNavigate();
       getAdmin();
     }
 
@@ -167,7 +170,7 @@ const ProfileScreen = () => {
                 return <Favorite fave={fave}/>
               })}
               {profileUser.favorites && profileUser.favorites.length === 0 ?
-                  <p>Liked restaurants will show up here!</p> : ""}
+                  <p className="wd-center">Liked restaurants will show up here!</p> : ""}
             </div>
           </div> }
         </div>}
