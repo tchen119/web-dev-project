@@ -37,7 +37,7 @@ export const UserProvider = ({children}) => {
 
   const checkLoggedIn = async () => {
     try {
-      const response = await profile();
+      const response = await profile(user);
       setUser(response[0]);
       setLoggedIn(true);
       return response;
