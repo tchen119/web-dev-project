@@ -53,10 +53,10 @@ const RecentActivity = () => {
                   const profileID = like.user_id;
                   const businessID = like.business_id;
                   return <li className="list-group-item">
-                    <Link className="wd-bold wd-left text-decoration-none wd-blue" to={"/profile/" + profileID}>{like.first_name + " "
+                    <Link className="wd-bold wd-left text-decoration-none text-secondary" to={"/profile/" + profileID}>{like.first_name + " "
                     + like.last_name}</Link>
                     <span className="wd-bold wd-left"> likes </span>
-                    <Link className="wd-bold wd-left text-decoration-none wd-blue" to={"/search/details/" + businessID}>{like.business_name}</Link>
+                    <Link className="wd-bold wd-left text-decoration-none text-secondary" to={"/search/details/" + businessID}>{like.business_name}</Link>
                   </li>
                 })}
               </ul>
@@ -70,10 +70,10 @@ const RecentActivity = () => {
                   const profileID = review.user_id;
                   const businessID = review.business_id;
                   return <li className="list-group-item">
-                    <Link className="wd-bold wd-left text-decoration-none wd-blue" to={"/profile/" + profileID}>{review.first_name + " "
+                    <Link className="wd-bold wd-left text-decoration-none text-secondary" to={"/profile/" + profileID}>{review.first_name + " "
                     + review.last_name}</Link>
                     <span className="wd-bold wd-left"> says about </span>
-                    <Link className="wd-bold wd-left text-decoration-none wd-blue" to={"/search/details/" + businessID}>{review.business_name}</Link>
+                    <Link className="wd-bold wd-left text-decoration-none text-secondary" to={"/search/details/" + businessID}>{review.business_name}</Link>
                     <p className="wd-left">{review.review}</p>
                   </li>
                 })}

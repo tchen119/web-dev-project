@@ -42,9 +42,6 @@ const ProfileScreen = () => {
 
   const getUser = async () => {
     try {
-      if (user._id === id) {
-        navigate('/profile');
-      }
       const user = await findUserById(id);
       setProfileUser(user[0]);
     } catch (e) {
