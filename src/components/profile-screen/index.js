@@ -73,7 +73,7 @@ const ProfileScreen = () => {
     if (!isLoggedIn) {
       navigate('/login');
     } else if (id && user._id === id) {
-      navigate('profile');
+      navigate('/profile');
     } else {
       setProfileUser(isLoggedIn[0]);
     }
